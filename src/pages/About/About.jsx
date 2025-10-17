@@ -1,5 +1,5 @@
 import logoImage from "../../assets/AboutImages/Groovy-Stitches.png";
-import knittingImage from "../../assets/AboutImages/Screenshot 2025-10-16 184302.png";
+import knittingImage from "../../assets/AboutImages/WhatsApp Image 2025-10-16 at 21.34.32_316cc46d.jpg";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
@@ -29,8 +29,13 @@ const About = () => {
         <div className="text-center md:text-left">
           <h2 className="text-4xl font-bold text-gray-800 mb-4">About Us</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            This project is a handmade e-commerce website designed for a local
-            brand that sells handcrafted bags, clothes, and crochet products
+            Where yarn meets color and every stitch has a groove ✨ What started
+            as a gift to a friend turned into a passion for making people smile
+            through handmade pieces that look like them. Every stitch is made
+            with love and a touch of groove because your bag, top, or accessory
+            should be as fun and unique as you are! Bright colors, happy vibes,
+            comfy feels that's the Groovy way. Made to bring happiness,
+            confidence, and a little bit of magic to your day.
           </p>
           <p className="text-gray-700 leading-relaxed">
             Every piece is made with care, creativity, and a little bit of
