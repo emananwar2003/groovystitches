@@ -1,4 +1,4 @@
-import logoImage from "../../assets/AboutImages/Groovy-Stitches.png";
+import logoImage from "../../assets/NewsImages/logo.png";
 import knittingImage from "../../assets/AboutImages/WhatsApp Image 2025-10-16 at 21.34.32_316cc46d.jpg";
 import {
   FaFacebookSquare,
