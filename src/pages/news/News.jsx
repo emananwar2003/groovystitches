@@ -13,7 +13,7 @@ const News = () => {
           <div className="pt-4 flex justify-center">
             <img src={groovyStitchesLogo} className="w-40 h-40" />
           </div>
-          <p className="text-xl leading-relaxe text-gray-800">
+          <p className="text-xl leading-relaxe text-gray-800 hover:text-black">
             Where every stitch tells a story.
           </p>
         </header>
@@ -25,10 +25,10 @@ const News = () => {
               <img src={sweaterImage} className="w-32 h-auto" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold leading-relaxed text-gray-800">
+              <h2 className="text-3xl font-bold leading-relaxed text-gray-800 ">
                 New Collection Launch
               </h2>
-              <p className="text-base leading-relaxed">
+              <p className="text-base leading-relaxed hover:text-black">
                 Discover our latest collection of handmade, retro-inspired
                 designs that add a touch of nostalgia to your wardrobe.
               </p>
@@ -41,10 +41,10 @@ const News = () => {
               <img src={womanImage} className="w-32 h-auto" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold text-gray-800">
+              <h2 className="text-3xl font-bold text-gray-800 hover:text-black">
                 Upcoming Workshop
               </h2>
-              <p className="text-base leading-relaxed">
+              <p className="text-base leading-relaxed hover:text-black">
                 Join us for a hands-on workshop and learn the art of crochet
                 from our experienced instructor.
               </p>
