@@ -18,6 +18,12 @@ const Home = () => {
         >
           Go to News Page
         </Link>
+        <Link
+          to="/login"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Go to login Page
+        </Link>
       </div>
     </div>
   );
