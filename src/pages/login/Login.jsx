@@ -78,9 +78,9 @@ const Login = () => {
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Do you have an account?!!{" "}
-              <Link to="/sign" className="font-medium text-gray-900">
+              <a href="/sign" className="font-medium text-gray-900">
                 Sign In
-              </Link>
+              </a>
             </Typography>
           </form>
         </div>
