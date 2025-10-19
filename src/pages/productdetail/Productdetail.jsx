@@ -33,11 +33,11 @@ const Productdetail = () => {
   const product = products.find((p) => p.id === id);
 
   return (
-    <div className="p-8 flex gap-12 justify-center items-center bg-[url('/prod-detail.jpg')] bg-[length:150%_100%] h-screen">
+    <div className="flex flex-col justify-end p-8 sm:flex-row sm:p-8 gap-4 sm:justify-center items-center bg-[url('/prod-detail.jpg')] bg-[length:150%_100%] h-screen sm:gap-12">
       <img
         src={product?.image}
         alt={product?.name}
-        className="w-96 h-3/5 object-cover mb-4"
+        className="h-64 sm:w-96 sm:h-3/5 rounded-2xl"
       />
 
       <div className="flex flex-col gap-2 justify-center h-3/6">
