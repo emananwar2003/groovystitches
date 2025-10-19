@@ -24,9 +24,9 @@ const Signup = () => {
             Please enter your details to register.
           </Typography>
         </div>
-        <div className="flex flex-col lg:flex-row justify-center items-center gap-0 lg:gap-10 ">
-          <Card color="transparent" shadow={false}>
-            <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form className="w-full flex flex-col items-center">
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-0 lg:gap-10">
+            <Card color="transparent" shadow={false}>
               <div className="mb-1 flex flex-col gap-6 p-5">
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   First Name
@@ -39,7 +39,6 @@ const Signup = () => {
                     className: "before:content-none after:content-none",
                   }}
                 />
-
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   Last Name
                 </Typography>
@@ -51,7 +50,6 @@ const Signup = () => {
                     className: "before:content-none after:content-none",
                   }}
                 />
-
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   Your Email
                 </Typography>
@@ -64,11 +62,8 @@ const Signup = () => {
                   }}
                 />
               </div>
-            </form>
-          </Card>
-
-          <Card color="transparent" shadow={false}>
-            <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+            </Card>
+            <Card color="transparent" shadow={false}>
               <div className="mb-1 flex flex-col gap-6 p-5">
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   Your Phone Number
@@ -82,7 +77,6 @@ const Signup = () => {
                     className: "before:content-none after:content-none",
                   }}
                 />
-
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   Password
                 </Typography>
@@ -95,7 +89,6 @@ const Signup = () => {
                     className: "before:content-none after:content-none",
                   }}
                 />
-
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   Confirm Password
                 </Typography>
@@ -109,39 +102,38 @@ const Signup = () => {
                   }}
                 />
               </div>
-            </form>
-          </Card>
-        </div>
-
-        <div className="flex flex-col justify-center items-center w-full sm:w-auto pb-10">
-          <Checkbox
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                I agree to the
-                <a
-                  href="#"
-                  className="font-medium transition-colors hover:text-gray-900"
+            </Card>
+          </div>
+          <div className="flex flex-col justify-center items-center w-full sm:w-auto pb-10">
+            <Checkbox
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-normal"
                 >
-                  &nbsp;Terms and Conditions
-                </a>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-          />
-          <Link to="/login" className="w-full sm:w-auto">
-            <Button className="mt-6 w-full sm:w-auto">Signup</Button>
-          </Link>
-          <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
-            <Link to="/login" className="font-medium text-gray-900">
-              Login
+                  I agree to the
+                  <a
+                    href="#"
+                    className="font-medium transition-colors hover:text-gray-900"
+                  >
+                    &nbsp;Terms and Conditions
+                  </a>
+                </Typography>
+              }
+              containerProps={{ className: "-ml-2.5" }}
+            />
+            <Link to="/login" className="w-full sm:w-auto">
+              <Button className="mt-6 w-full sm:w-auto">Signup</Button>
             </Link>
-          </Typography>
-        </div>
+            <Typography color="gray" className="mt-4 text-center font-normal">
+              Already have an account?
+              <Link to="/login" className="font-medium text-gray-900">
+                Login
+              </Link>
+            </Typography>
+          </div>
+        </form>
       </div>
     </div>
   );
