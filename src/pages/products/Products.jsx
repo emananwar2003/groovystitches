@@ -1,4 +1,6 @@
 import ProductCard from "./productcard";
+import { Link } from "react-router-dom";
+
 import {
   Card,
   CardHeader,
@@ -11,34 +13,39 @@ import {
 const Products = () => {
   const products = [
     {
-      name: "Apple AirPods",
+      name: "Bubble Gum Bag",
       price: "$95.00",
-      image:
-        "https://images.unsplash.com/photo-1629367494173-c78a56567877?auto=format&fit=crop&w=800&q=80",
+      image: "/bublegum.jpg",
     },
     {
-      name: "Smart Watch",
+      name: "Mashroum",
       price: "$120.00",
-      image:
-        "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=800&q=80",
+      image: "/mashroum.jpg",
     },
     {
-      name: "Gaming Headset",
+      name: "Sobya Bag",
       price: "$70.00",
-      image:
-        "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80",
+      image: "/sobya.jpg",
     },
   ];
 
   return (
-    <div className="flex flex-wrap gap-6 justify-center p-6">
+    <div
+      className="flex flex-wrap gap-6 justify-center 
+    p-6 items-center bg-deep-orange-50 bg-[url('/products.jpg')] bg-[length:100%_100%] min-h-screen "
+    >
+      <h1 className="text-5xl font-extrabold text-gray-800 text-center drop-shadow-lg">
+        Our <span className="text-orange-500">Exclusive</span> Products
+      </h1>
       {products.map((product, index) => (
-        <ProductCard
-          key={index}
-          image={product.image}
-          name={product.name}
-          price={product.price}
-        />
+        <Link to={`/productdetail/${index}`} key={index}>
+          <ProductCard
+            key={index}
+            image={product.image}
+            name={product.name}
+            price={product.price}
+          />
+        </Link>
       ))}
     </div>
   );

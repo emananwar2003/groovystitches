@@ -8,7 +8,12 @@ module.exports = withMT({
     "./node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        bannercolor: "#A6603A",
+        bannertext: "#EFE3b8",
+      },
+    },
   },
   plugins: [],
 });
