@@ -5,6 +5,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -73,9 +74,11 @@ const Login = () => {
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <Button className="mt-6" fullWidth>
-              Login
-            </Button>
+            <Link to="/">
+              <Button className="mt-6" fullWidth>
+                Login
+              </Button>
+            </Link>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Do you have an account?!!{" "}
               <Link to="/sign" className="font-medium text-gray-900">
