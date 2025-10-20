@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FakeComp = () => {
   return (
-    <div className="text-center p-10">
+    <div className="text-center mt-10">
       <h1 className="text-4xl font-bold mb-4">Welcome to GroovyStitches!</h1>
       <p className="mb-8">This is the main page of your application.</p>
       <div className="gap-4 flex justify-center">
