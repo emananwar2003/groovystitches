@@ -32,10 +32,11 @@ const Products = () => {
   return (
     <div
       className="flex flex-wrap gap-6 justify-center 
-    p-6 items-center bg-deep-orange-50 bg-[url('/products.jpg')] bg-[length:100%_100%] min-h-screen "
+    p-6 items-center bg-deep-orange-50 bg-[url('/products.jpg')] bg-[length:100%_100%] min-h-screen
+    	 "
     >
-      <h1 className="text-5xl font-extrabold text-gray-800 text-center ">
-        Our <span className="text-orange-500">Exclusive</span> Products
+      <h1 className="text-5xl font-extrabold text-gray-800 text-center sm:w-full">
+        Our <span className="text-orange-500 ">Exclusive</span> Products
       </h1>
       {products.map((product, index) => (
         <Link to={`/productdetail/${index}`} key={index}>

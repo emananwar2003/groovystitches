@@ -40,15 +40,15 @@ const Productdetail = () => {
         className="h-64 sm:w-96 sm:h-3/5 rounded-2xl"
       />
 
-      <div className="flex flex-col gap-2 justify-center h-3/6">
+      <div className="flex flex-col gap-2 justify-center h-3/6 ">
         <h1 className="text-3xl font-bold mb-4">{product?.name}</h1>
         <p className="text-gray-700 mb-2">Price: {product?.price}</p>
         <p className="text-gray-600">{product?.description}</p>
 
-        <button className="mt-3 w-full bg-deep-orange-200 text-white py-2 rounded-lg hover:bg-deep-orange-300 transition">
+        <button className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition">
           Add to Cart
         </button>
-        <button className="mt-3 w-full bg-deep-orange-200 text-white py-2 rounded-lg hover:bg-deep-orange-300 transition">
+        <button className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition">
           Buy now
         </button>
       </div>
