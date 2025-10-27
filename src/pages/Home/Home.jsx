@@ -37,7 +37,7 @@ const Home = () => {
         },
     ]);
   return (
-    <div className="flex  flex-col justify-center items-center bg-yellow-50 gap-20">
+    <div className="flex  flex-col justify-center items-center bg-[#fdf3e6] gap-20">
       <FakeComp></FakeComp>
       <Banner/>
       <CarouselHome trending={trending} />

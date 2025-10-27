@@ -17,7 +17,7 @@ const CarouselHome = ({ trending }) => {
 
 return (
     <div className="w-full  mx-auto flex flex-col gap-3 ">
-        <Typography as="h1" className="text-4xl text-orange-800 font-extrabold ">Trending right now</Typography>
+        <Typography as="h1" className="text-4xl text-orange-800 font-extrabold text-center ">Trending right now</Typography>
 
         <CarouselDefault trending={trending} />
     </div>
