@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-
+import { useCart } from "../../contextapi/Cartcontext";
 const Productdetail = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
 
   const products = [
     {
@@ -45,7 +46,10 @@ const Productdetail = () => {
         <p className="text-gray-700 mb-2">Price: {product?.price}</p>
         <p className="text-gray-600">{product?.description}</p>
 
-        <button className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition">
+        <button
+          onClick={() => addToCart(product)}
+          className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition"
+        >
           Add to Cart
         </button>
         <button className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition">
