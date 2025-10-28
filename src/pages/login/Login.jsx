@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useAuth } from "../../contextapi/Authcontext";
 const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +16,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -56,6 +57,13 @@ const Login = () => {
     }
 
     if (valid) {
+          const dummyUser = {
+            id: "001",
+            name,
+            email,
+            role: "user",
+        };
+        login(dummyUser)
       navigate("/");
     }
   };

@@ -9,6 +9,7 @@ import Notfound from "./pages/Notfound/Notfound";
 import Productdetail from "./pages/productdetail/Productdetail";
 import Signup from "./pages/sign up/Signup";
 import Products from "./pages/products/Products";
+import Protectcart from "./contextapi/Protectcart";
 
 const App = () => {
   return (
@@ -17,7 +18,14 @@ const App = () => {
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/checkout" element={<Check />}></Route>
+        <Route
+          path="/checkout"
+          element={
+            <Protectcart>
+              <Check />
+            </Protectcart>
+          }
+        ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/sign" element={<Signup />}></Route>
         <Route path="/products" element={<Products />}></Route>
