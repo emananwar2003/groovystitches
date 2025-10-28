@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FakeComp = () => {
   return (
-    <div className="text-center p-10">
+    <div className="text-center mt-10">
       <h1 className="text-4xl font-bold mb-4">Welcome to GroovyStitches!</h1>
       <p className="mb-8">This is the main page of your application.</p>
       <div className="gap-4 flex justify-center">
@@ -24,6 +24,12 @@ const FakeComp = () => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Go to login Page
+        </Link>
+        <Link
+          to="/cart"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Go to cart
         </Link>
       </div>
     </div>

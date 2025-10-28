@@ -1,11 +1,5 @@
-
-
 const Check = () => {
-return (
-    <div>
-        
-    </div>
-)
-}
+  return <div>Check</div>;
+};
 
-export default Check
+export default Check;
