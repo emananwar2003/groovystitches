@@ -11,24 +11,29 @@ import { Link, useNavigate } from "react-router-dom";
 const Signup = () => {
   const navigate = useNavigate(); // for navigation after validation
   // variables for validation
-  const [Firstname, setFirstName] = useState("");
-  const [FirstnameError, setFirstNameError] = useState("");
-  const [Lastname, setLastName] = useState("");
-  const [LastnameError, setLastNameError] = useState("");
-  const [SignupEmail, setSignupEmail] = useState("");
-  const [SignupEmailError, setSignupEmailError] = useState("");
-  const [Phone, setPhone] = useState("");
-  const [PhoneError, setPhoneError] = useState("");
-  const [Password, setPassword] = useState("");
-  const [PasswordError, setPasswordError] = useState("");
-  const [ConfirmPassword, setConfirmPassword] = useState("");
-  const [ConfirmPasswordError, setConfirmPasswordError] = useState("");
+  const [user, Setuser] = useState({
+    Firstname: "",
+    Lastname: "",
+    SignupEmail: "",
+    Phone: "",
+    Password: "",
+    ConfirmPassword: "",
+  });
+
+  const [errors, Seterror] = useState({
+    FirstnameError: "",
+    LastnameError: "",
+    SignupEmailError: "",
+    PhoneError: "",
+    PasswordError: "",
+    ConfirmPasswordError: "",
+  });
+
   const [IsPass, setIsPass] = useState("");
 
   const [Agree, setAgree] = useState(false);
   const [AgreeError, setAgreeError] = useState("");
 
-  //function for name validation بدل ما اعيد الكود للاسم الاول و التاني
   const validateName = (name, firstORlastname) => {
     let error = "";
     if (name === "") {
@@ -41,100 +46,105 @@ const Signup = () => {
     return error;
   };
 
-  const validatePass = (pass,passORconfirm) => {
+  const validatePass = (pass, passORconfirm) => {
     let error = "";
+    const strongPassRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+
     if (pass === "") {
       error = `- Please enter ${passORconfirm}`;
-    } else if (pass.length < 8) {
-      error = `- Please enter 8 charcters`;
-    } else if (pass.length > 8) {
-      error = `-Please enter 8 charcters onley`;
+    } else if (!strongPassRegex.test(pass)) {
+      error = `- Password must be at least 8 characters, include one uppercase letter and one special character`;
     }
+
     return error;
   };
 
-  const handleSignup = (e) => {
+  const HandelNewUser = (e) => {
     e.preventDefault();
 
-    const firstnameErr = validateName(Firstname, "first name"); // استدعاء الفانكشن
-    const lastnameErr = validateName(Lastname, "last name");
-
-    const passErr = validatePass(Password,"password"); // استدعاء الفانكشن
-    const confirmpassErr = validatePass(ConfirmPassword,"Confirm password");
+    const firstnameErr = validateName(user.Firstname, "first name");
+    const lastnameErr = validateName(user.Lastname, "last name");
 
     if (firstnameErr) {
-      setFirstNameError(firstnameErr);
+      Seterror({ ...errors, FirstnameError: firstnameErr });
       return false;
     } else {
-      setFirstNameError("");
+      Seterror({ ...errors, FirstnameError: "" });
     }
 
     if (lastnameErr) {
-      setLastNameError(lastnameErr);
+      Seterror({ ...errors, LastnameError: lastnameErr });
       return false;
-    }else{
-      setLastNameError("");
+    } else{
+      Seterror({ ...errors, LastnameError: "" });
     }
 
-    if (SignupEmail === "") {
-      setSignupEmailError("- Please enter your email");
+    if (user.SignupEmail === "") {
+      Seterror({ ...errors, SignupEmailError: "- Please enter your email" });
       return false;
-    }else{
-      setSignupEmailError("");
+    } else {
+      Seterror({ ...errors, SignupEmailError: "" });
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(SignupEmail)) {
-      setSignupEmailError("- Please enter a valid email");
+    if (!emailPattern.test(user.SignupEmail)) {
+      Seterror({ ...errors, SignupEmailError: "- Please enter a valid email" });
       return false;
-    }else{
-      setSignupEmailError("");
+    } else {
+      Seterror({ ...errors, SignupEmailError: "" });
     }
 
-    if (Phone === "") {
-      setPhoneError("- Please enter your phone number");
+    if (user.Phone === "") {
+      Seterror({ ...errors, PhoneError: "- Please enter your phone number" });
       return false;
-    }else{
-      setPhoneError("");
+    } else {
+      Seterror({ ...errors, PhoneError: "" });
     }
 
-    if (!/^\+\d+$/.test(Phone.trim())) {
-      setPhoneError("- Please start your number with country code 'ex:+20'");
+    // التحقق من رقم مصري بصيغة +20 ومقدمات الشركات
+    const egyptianPhoneRegex = /^\+20(10|11|12|15)\d{8}$/;
+    if (!egyptianPhoneRegex.test(user.Phone.trim())) {
+      Seterror({
+        ...errors,
+        PhoneError: "- Please enter a vaild phone number with country code +20",
+      });
       return false;
-    }else{
-      setPhoneError("");
+    } else {
+      Seterror({ ...errors, PhoneError: "" });
     }
 
-    if (Phone.length < 13 || Phone.length > 16) {
-      setPhoneError("- Please enter a valid phone number length");
-      return false;
-    }else{
-      setPhoneError("");
-    }
+    const passErr = validatePass(user.Password, "password"); // استدعاء الفانكشن
+    const confirmpassErr = validatePass(
+      user.ConfirmPassword,
+      "a Confirm password"
+    );
 
     if (passErr) {
-      setPasswordError(passErr);
+      Seterror({ ...errors, PasswordError: passErr });
       return false;
-    }else{
-      setPasswordError("");
+    } else {
+      Seterror({ ...errors, PasswordError: "" });
     }
 
     if (confirmpassErr) {
-      setConfirmPasswordError(confirmpassErr);
+      Seterror({ ...errors, ConfirmPasswordError: confirmpassErr });
       return false;
-    }else{
-      setConfirmPasswordError("");
+    } else {
+      Seterror({ ...errors, ConfirmPasswordError: "" });
     }
-    if (Password !== ConfirmPassword) {
+
+    if (user.Password !== user.ConfirmPassword) {
       setIsPass("- Passwords do not match.");
       return false;
-    }else{
+    } else {
       setIsPass("");
     }
+
     if (!Agree) {
       setAgreeError("- Please agree to the Terms & Conditions");
       return false;
-    }else{
+    } else {
       setAgreeError("");
     }
 
@@ -159,22 +169,26 @@ const Signup = () => {
         </div>
         <form
           className="w-full flex flex-col items-center"
-          onSubmit={handleSignup}
+          onSubmit={HandelNewUser}
         >
+          <Typography color="black" className="mt-1 font-normal text-lg">
+            Create New User
+          </Typography>
           <div className="flex flex-col lg:flex-row justify-center items-center gap-0 lg:gap-10">
             <Card color="transparent" shadow={false}>
               <div className="mb-1 flex flex-col gap-6 p-5">
                 <Typography
                   variant="h6"
-                  color={FirstnameError ? "red" : "blue-gray"} //blawn law fy error
+                  color={errors.FirstnameError ? "red" : "blue-gray"}
                   className="-mb-3"
                 >
-                  {FirstnameError ? FirstnameError : "First Name"}{" "}
-                  {/* by8yr el kalam law fy error */}
+                  {errors.FirstnameError ? errors.FirstnameError : "First Name"}
                 </Typography>
                 <Input
-                  value={Firstname} // ba5od value el first name
-                  onChange={(e) => setFirstName(e.target.value)} // ba5od el value kol ma tt5yar
+                  value={user.Firstname}
+                  onChange={(e) => {
+                    Setuser({ ...user, Firstname: e.target.value });
+                  }}
                   size="lg"
                   placeholder="First name"
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -184,15 +198,16 @@ const Signup = () => {
                 />
                 <Typography
                   variant="h6"
-                  color={LastnameError ? "red" : "blue-gray"} // blawn law fy error
+                  color={errors.LastnameError ? "red" : "blue-gray"}
                   className="-mb-3"
                 >
-                  {LastnameError ? LastnameError : "Last Name"}{" "}
-                  {/* by8yr el kalam law fy error */}
+                  {errors.LastnameError ? errors.LastnameError : "Last Name"}
                 </Typography>
                 <Input
-                  value={Lastname} // ba5od value el last name
-                  onChange={(e) => setLastName(e.target.value)} // ba5od el value kol ma tt5yar
+                  value={user.Lastname}
+                  onChange={(e) => {
+                    Setuser({ ...user, Lastname: e.target.value });
+                  }}
                   size="lg"
                   placeholder="Last name"
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -202,15 +217,16 @@ const Signup = () => {
                 />
                 <Typography
                   variant="h6"
-                  className={`-mb-3 ${
-                    SignupEmailError ? "text-red-500" : "text-blue-gray-900"
-                  }`}
+                  className="-mb-3 "
+                  color={errors.SignupEmailError ? "red" : "blue-gray"}
                 >
-                  {SignupEmailError ? SignupEmailError : "Your Email"}{" "}
-                  {/* for text changing */}
+                  {errors.SignupEmailError ? errors.SignupEmailError : "Email"}
                 </Typography>
                 <Input
-                  onChange={(e) => setSignupEmail(e.target.value)} // detect changimg value
+                  value={user.SignupEmail}
+                  onChange={(e) => {
+                    Setuser({ ...user, SignupEmail: e.target.value });
+                  }}
                   size="lg"
                   placeholder="name@mail.com"
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -224,18 +240,15 @@ const Signup = () => {
               <div className="mb-1 flex flex-col gap-6 p-5">
                 <Typography
                   variant="h6"
-                  color={PhoneError ? "red" : "blue-gray"}
+                  color={errors.PhoneError ? "red" : "blue-gray"}
                   className="-mb-3"
                 >
-                  {PhoneError ? PhoneError : "Your Phone Number"}
+                  {errors.PhoneError ? errors.PhoneError : "Phone Number"}
                 </Typography>
                 <Input
+                  value={user.Phone}
                   onChange={(e) => {
-                    const value = e.target.value;
-                    // يمنع أي حاجة غير الأرقام أو + في أول خانة
-                    if (/^\+?[0-9]*$/.test(value)) {
-                      setPhone(value);
-                    }
+                    Setuser({ ...user, Phone: e.target.value });
                   }}
                   type="tel"
                   size="lg"
@@ -247,13 +260,16 @@ const Signup = () => {
                 />
                 <Typography
                   variant="h6"
-                  color={PasswordError ? "red" : "blue-gray"}
+                  color={errors.PasswordError ? "red" : "blue-gray"}
                   className="-mb-3"
                 >
-                  {PasswordError ? PasswordError : "Password"}
+                  {errors.PasswordError ? errors.PasswordError : "Password"}
                 </Typography>
                 <Input
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={user.Password}
+                  onChange={(e) => {
+                    Setuser({ ...user, Password: e.target.value });
+                  }}
                   type="password"
                   size="lg"
                   placeholder="8 characters"
@@ -264,15 +280,20 @@ const Signup = () => {
                 />
                 <Typography
                   variant="h6"
-                  color={ConfirmPasswordError || IsPass ? "red" : "blue-gray"}
+                  color={
+                    errors.ConfirmPasswordError || IsPass ? "red" : "blue-gray"
+                  }
                   className="-mb-3"
                 >
-                  {ConfirmPasswordError
-                    ? ConfirmPasswordError
+                  {errors.ConfirmPasswordError
+                    ? errors.ConfirmPasswordError
                     : "Confirm Password"}
                 </Typography>
                 <Input
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={user.ConfirmPassword}
+                  onChange={(e) => {
+                    Setuser({ ...user, ConfirmPassword: e.target.value });
+                  }}
                   type="password"
                   size="lg"
                   placeholder="Repeat password"
