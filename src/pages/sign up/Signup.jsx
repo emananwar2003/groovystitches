@@ -48,13 +48,17 @@ const Signup = () => {
 
   const validatePass = (pass, passORconfirm) => {
     let error = "";
-    const strongPassRegex =
-      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
 
     if (pass === "") {
       error = `- Please enter ${passORconfirm}`;
-    } else if (!strongPassRegex.test(pass)) {
-      error = `- Password must be at least 8 characters, include one uppercase letter and one special character`;
+    } else if (pass.length < 8) {
+      error = "- Password must be at least 8 characters long";
+    } else if (!/[A-Z]/.test(pass)) {
+      error = "- Password must contain at least one uppercase letter";
+    } else if (!/[!@#$%^&*(),.?\":{}|<>]/.test(pass)) {
+      error = "- Password must contain at least one special character";
+    } else {
+      error = "";
     }
 
     return error;
@@ -76,7 +80,7 @@ const Signup = () => {
     if (lastnameErr) {
       Seterror({ ...errors, LastnameError: lastnameErr });
       return false;
-    } else{
+    } else {
       Seterror({ ...errors, LastnameError: "" });
     }
 
@@ -187,7 +191,11 @@ const Signup = () => {
                 <Input
                   value={user.Firstname}
                   onChange={(e) => {
-                    Setuser({ ...user, Firstname: e.target.value });
+                    const value = e.target.value;
+                    Setuser({ ...user, Firstname: value });
+                    // validation أثناء الكتابة
+                    const firstnameErr = validateName(value, "first name");
+                    Seterror({ ...errors, FirstnameError: firstnameErr });
                   }}
                   size="lg"
                   placeholder="First name"
@@ -206,7 +214,10 @@ const Signup = () => {
                 <Input
                   value={user.Lastname}
                   onChange={(e) => {
-                    Setuser({ ...user, Lastname: e.target.value });
+                    const value = e.target.value;
+                    Setuser({ ...user, Lastname: value });
+                    const lastnameErr = validateName(value, "last name");
+                    Seterror({ ...errors, LastnameError: lastnameErr });
                   }}
                   size="lg"
                   placeholder="Last name"
@@ -225,7 +236,15 @@ const Signup = () => {
                 <Input
                   value={user.SignupEmail}
                   onChange={(e) => {
-                    Setuser({ ...user, SignupEmail: e.target.value });
+                    const value = e.target.value;
+                    Setuser({ ...user, SignupEmail: value });
+
+                    let emailErr = "";
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (value === "") emailErr = "- Please enter your email";
+                    else if (!emailPattern.test(value))
+                      emailErr = "- Please enter a valid email";
+                    Seterror({ ...errors, SignupEmailError: emailErr });
                   }}
                   size="lg"
                   placeholder="name@mail.com"
@@ -248,7 +267,17 @@ const Signup = () => {
                 <Input
                   value={user.Phone}
                   onChange={(e) => {
-                    Setuser({ ...user, Phone: e.target.value });
+                    const value = e.target.value;
+                    Setuser({ ...user, Phone: value });
+
+                    let phoneErr = "";
+                    const egyptianPhoneRegex = /^\+20(10|11|12|15)\d{8}$/;
+                    if (value === "")
+                      phoneErr = "- Please enter your phone number";
+                    else if (!egyptianPhoneRegex.test(value.trim()))
+                      phoneErr =
+                        "- Please enter a vaild phone number with country code +20";
+                    Seterror({ ...errors, PhoneError: phoneErr });
                   }}
                   type="tel"
                   size="lg"
@@ -268,11 +297,19 @@ const Signup = () => {
                 <Input
                   value={user.Password}
                   onChange={(e) => {
-                    Setuser({ ...user, Password: e.target.value });
+                    const value = e.target.value;
+                    Setuser({ ...user, Password: value });
+                    const passErr = validatePass(value, "password");
+                    Seterror({ ...errors, PasswordError: passErr });
+
+                    // لو confirm مكتوبة، نتحقق كمان من التطابق
+                    if (user.ConfirmPassword && user.ConfirmPassword !== value)
+                      setIsPass("- Passwords do not match.");
+                    else setIsPass("");
                   }}
                   type="password"
                   size="lg"
-                  placeholder="8 characters"
+                  placeholder=""
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                   labelProps={{
                     className: "before:content-none after:content-none",
@@ -292,7 +329,14 @@ const Signup = () => {
                 <Input
                   value={user.ConfirmPassword}
                   onChange={(e) => {
-                    Setuser({ ...user, ConfirmPassword: e.target.value });
+                    const value = e.target.value;
+                    Setuser({ ...user, ConfirmPassword: value });
+                    const confErr = validatePass(value, "Confirm password");
+                    Seterror({ ...errors, ConfirmPasswordError: confErr });
+
+                    if (user.Password && user.Password !== value)
+                      setIsPass("- Passwords do not match.");
+                    else setIsPass("");
                   }}
                   type="password"
                   size="lg"

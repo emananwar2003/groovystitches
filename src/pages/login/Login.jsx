@@ -9,61 +9,84 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contextapi/Authcontext";
 const Login = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
     let valid = true;
-    if (name === "") {
-      setNameError("- Please enter your name");
+    let newErrors = { name: "", email: "", password: "" };
+
+    // Name validation
+    if (formData.name === "") {
+      newErrors.name = "- Please enter your name";
       valid = false;
-    } else if (name.length < 2) {
-      setNameError("- Please enter real name");
+    } else if (formData.name.length < 2) {
+      newErrors.name = "- Please enter real name";
       valid = false;
-    } else if (name[0] !== name[0].toUpperCase()) {
-      setNameError("- First letter must be capital");
+    } else if (formData.name[0] !== formData.name[0].toUpperCase()) {
+      newErrors.name = "- First letter must be capital";
       valid = false;
-    } else {
-      setNameError("");
     }
-    if (password === "") {
-      setPasswordError("- Please enter your password");
+
+    // Password validation
+    if (formData.password === "") {
+      newErrors.password = "- Please enter your password";
       valid = false;
-    } else if (password.length < 8) {
-      setPasswordError("- Password must be at least 8 characters long");
+    } else if (formData.password.length < 8) {
+      newErrors.password = "- Password must be at least 8 characters long";
+      valid = false;
+    } else if (!/[A-Z]/.test(formData.password)) {
+      newErrors.password =
+        "- Password must contain at least one uppercase letter";
+      valid = false;
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+      newErrors.password =
+        "- Password must contain at least one special character";
       valid = false;
     } else {
-      setPasswordError("");
+      newErrors.password = "";
     }
-    if (email === "") {
-      setEmailError("- Please enter your email");
+
+    // Email validation
+    if (formData.email === "") {
+      newErrors.email = "- Please enter your email";
       valid = false;
     } else {
-      // تعبير منتظم بسيط للتحقق من صيغة الإيميل
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        setEmailError("- Please enter a valid email");
+      if (!emailPattern.test(formData.email)) {
+        newErrors.email = "- Please enter a valid email";
         valid = false;
-      } else {
-        setEmailError("");
       }
     }
 
+    setErrors(newErrors);
+
     if (valid) {
-          const dummyUser = {
-            id: "001",
-            name,
-            email,
-            role: "user",
-        };
-        login(dummyUser)
+      const dummyUser = {
+        id: "001",
+        name: formData.name,
+        email: formData.email,
+        role: "user",
+      };
+      login(dummyUser);
       navigate("/");
     }
   };
@@ -88,10 +111,10 @@ const Login = () => {
                 variant="h6"
                 color="blue-gray"
                 className={`-mb-3 ${
-                  nameError ? "text-red-500" : "text-blue-gray-900"
+                  errors.name ? "text-red-500" : "text-blue-gray-900"
                 }`}
               >
-                {nameError ? nameError : "Your Name"}
+                {errors.name || "Your Name"}
               </Typography>
               <Input
                 size="lg"
@@ -100,20 +123,23 @@ const Login = () => {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
               />
               <Typography
                 variant="h6"
                 color="blue-gray"
                 className={`-mb-3 ${
-                  emailError ? "text-red-500" : "text-blue-gray-900"
+                  errors.email ? "text-red-500" : "text-blue-gray-900"
                 }`}
               >
-                {emailError ? emailError : "Your Email"}
+                {errors.email || "Your Email"}
               </Typography>
               <Input
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 size="lg"
                 placeholder="name@mail.com"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -125,14 +151,16 @@ const Login = () => {
                 variant="h6"
                 color="blue-gray"
                 className={`-mb-3 ${
-                  passwordError ? "text-red-500" : "text-blue-gray-900"
+                  errors.password ? "text-red-500" : "text-blue-gray-900"
                 }`}
               >
-                {passwordError ? passwordError : "Password"}
+                {errors.password || "Password"}
               </Typography>
               <Input
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
                 type="password"
+                value={formData.password}
+                onChange={handleChange}
                 size="lg"
                 placeholder="8 numbers"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
