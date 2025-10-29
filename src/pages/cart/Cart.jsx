@@ -1,9 +1,17 @@
 import React from "react";
 import logoImage from "/NewsImages/logo.png";
 import { useCart } from "../../contextapi/Cartcontext";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, removeFromCart, total } = useCart();
+  const {
+    cartItems,
+    removeFromCart,
+    total,
+    incrementQuantity,
+    decrementQuantity,
+    clearCart,
+  } = useCart();
 
   return (
     <div className="bg-[#fdf3e6] min-h-screen flex flex-col items-center justify-center font-sans p-4 ">
@@ -18,7 +26,7 @@ const Cart = () => {
 
         <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <div className="space-y-4">
-            {/*  Check if the cart has items if not "True" shows cart is epmty else shows the item */}
+            {/*  Checks if the cart has items if "True" shows cart is epmty else shows the item */}
             {cartItems.length === 0 ? (
               <p className="text-center text-gray-500">Your cart is empty.</p>
             ) : (
@@ -37,6 +45,23 @@ const Cart = () => {
                       <p className="text-gray-600">${item.price.toFixed(2)}</p>
                     </div>
                   </div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => decrementQuantity(item.id)}
+                      className="bg-gray-200 w-7 h-7 rounded-full font-bold text-lg hover:bg-gray-300"
+                    >
+                      -
+                    </button>
+                    <span className="font-semibold text-lg">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => incrementQuantity(item.id)}
+                      className="bg-gray-200 w-7 h-7 rounded-full font-bold text-lg hover:bg-gray-300"
+                    >
+                      +
+                    </button>
+                  </div>
                   <button
                     onClick={() => removeFromCart(item.id)}
                     className="text-red-500 hover:text-red-700 font-bold"
@@ -48,9 +73,18 @@ const Cart = () => {
             )}
           </div>
           <div>
-            <button className="bg-[#E98F4B] text-white w-full py-4 rounded-full text-lg font-bold hover:bg-[#d97f3b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg mt-8">
-              Checkout
+            <button
+              onClick={clearCart}
+              className="bg-[#ce2424] text-white w-44 py-3 rounded-full text-lg font-bold hover:bg-[#d9433b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg mt-8 mr-5"
+            >
+              Clear
             </button>
+            <Link
+              to="/checkout"
+              className="text-center bg-[#E98F4B] text-white p-12 py-4 rounded-full text-lg font-bold hover:bg-[#d97f3b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg mt-8"
+            >
+              Checkout
+            </Link>
           </div>
         </div>
 
