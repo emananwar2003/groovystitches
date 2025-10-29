@@ -8,7 +8,7 @@ const Productdetail = () => {
     {
       id: "0",
       name: "Bubble Gum Bag",
-      price: "$95.00",
+      price: 95.0, // removed by basem cuz it was a string not a number NaN
       image: "/bublegum.jpg",
       description:
         "Stylish and colorful bag made from premium materials — perfect for everyday use. Combines fashion and comfort in one trendy design.",
@@ -16,7 +16,7 @@ const Productdetail = () => {
     {
       id: "1",
       name: "Mashrom",
-      price: "$120.00",
+      price: 120.0,
       image: "/mashroum.jpg",
       description:
         "A modern smartwatch that helps you track your health and stay connected — elegant and functional for every occasion.",
@@ -24,7 +24,7 @@ const Productdetail = () => {
     {
       id: "2",
       name: "Sobya Bag",
-      price: "$70.00",
+      price: 70.0,
       image: "/sobya.jpg",
       description:
         "Experience immersive sound and comfort for long gaming sessions. Sleek design with crystal-clear audio.",
