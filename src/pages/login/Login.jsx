@@ -10,13 +10,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contextapi/Authcontext";
 const Login = () => {
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -33,18 +31,6 @@ const Login = () => {
     e.preventDefault();
     let valid = true;
     let newErrors = { name: "", email: "", password: "" };
-
-    // Name validation
-    if (formData.name === "") {
-      newErrors.name = "- Please enter your name";
-      valid = false;
-    } else if (formData.name.length < 2) {
-      newErrors.name = "- Please enter real name";
-      valid = false;
-    } else if (formData.name[0] !== formData.name[0].toUpperCase()) {
-      newErrors.name = "- First letter must be capital";
-      valid = false;
-    }
 
     // Password validation
     if (formData.password === "") {
@@ -82,20 +68,21 @@ const Login = () => {
     if (valid) {
       const dummyUser = {
         id: "001",
-        name: formData.name,
+        // name: formData.name,
         email: formData.email,
         role: "user",
       };
       login(dummyUser);
       navigate("/");
     }
+  
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[url('/Login-Bg-img.jpg')] bg-cover bg-center ">
       <Card color="transparent" shadow={false}>
         <div className="absolute inset-0 bg-[url('/Colors-img.jpg')] bg-cover bg-center opacity-15"></div>
-        <div className="relative z-10">
+        <div className="relative z-10 p-5">
           <Typography variant="h4" color="blue-gray">
             Login
           </Typography>
@@ -107,26 +94,6 @@ const Login = () => {
             onSubmit={handleLogin}
           >
             <div className="mb-1 flex flex-col gap-6">
-              <Typography
-                variant="h6"
-                color="blue-gray"
-                className={`-mb-3 ${
-                  errors.name ? "text-red-500" : "text-blue-gray-900"
-                }`}
-              >
-                {errors.name || "Your Name"}
-              </Typography>
-              <Input
-                size="lg"
-                placeholder="name"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 "
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
               <Typography
                 variant="h6"
                 color="blue-gray"
