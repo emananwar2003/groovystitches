@@ -1,7 +1,10 @@
 import React from "react";
 import logoImage from "/NewsImages/logo.png";
+import { useCart } from "../../contextapi/Cartcontext";
 
 const Cart = () => {
+  const { cartItems, removeFromCart, total } = useCart();
+
   return (
     <div className="bg-[#fdf3e6] min-h-screen flex flex-col items-center justify-center font-sans p-4 ">
       <div className="w-full max-w-md mx-auto">
@@ -14,7 +17,36 @@ const Cart = () => {
         </div>
 
         <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-          <div>{/*here will be the products*/}</div>
+          <div className="space-y-4">
+            {/*  Check if the cart has items if not "True" shows cart is epmty else shows the item */}
+            {cartItems.length === 0 ? (
+              <p className="text-center text-gray-500">Your cart is empty.</p>
+            ) : (
+              cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between border-b pb-2"
+                >
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={item.image}
+                      className="w-16 h-16 rounded-md object-cover"
+                    />
+                    <div>
+                      <h3 className="font-semibold">{item.name}</h3>
+                      <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-red-500 hover:text-red-700 font-bold"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
           <div>
             <button className="bg-[#E98F4B] text-white w-full py-4 rounded-full text-lg font-bold hover:bg-[#d97f3b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg mt-8">
               Checkout
@@ -24,7 +56,7 @@ const Cart = () => {
 
         <div className="flex justify-between items-center mt-8 text-xl font-bold text-gray-700 px-2">
           <span>Total:</span>
-          <span>0</span>
+          <span>${total.toFixed(2)}</span>
         </div>
       </div>
     </div>
