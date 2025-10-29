@@ -12,11 +12,11 @@ const Signup = () => {
   const navigate = useNavigate(); // for navigation after validation
   // variables for validation
   const [user, Setuser] = useState({
-    Firstname: "",
-    Lastname: "",
-    SignupEmail: "",
-    Phone: "",
-    Password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
     ConfirmPassword: "",
   });
 
@@ -64,11 +64,11 @@ const Signup = () => {
     return error;
   };
 
-  const HandelNewUser = (e) => {
+  const HandelNewUser = async (e) => {
     e.preventDefault();
 
-    const firstnameErr = validateName(user.Firstname, "first name");
-    const lastnameErr = validateName(user.Lastname, "last name");
+    const firstnameErr = validateName(user.firstName, "first name");
+    const lastnameErr = validateName(user.lastName, "last name");
 
     if (firstnameErr) {
       Seterror({ ...errors, FirstnameError: firstnameErr });
@@ -84,7 +84,7 @@ const Signup = () => {
       Seterror({ ...errors, LastnameError: "" });
     }
 
-    if (user.SignupEmail === "") {
+    if (user.email === "") {
       Seterror({ ...errors, SignupEmailError: "- Please enter your email" });
       return false;
     } else {
@@ -92,14 +92,14 @@ const Signup = () => {
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(user.SignupEmail)) {
+    if (!emailPattern.test(user.email)) {
       Seterror({ ...errors, SignupEmailError: "- Please enter a valid email" });
       return false;
     } else {
       Seterror({ ...errors, SignupEmailError: "" });
     }
 
-    if (user.Phone === "") {
+    if (user.phone === "") {
       Seterror({ ...errors, PhoneError: "- Please enter your phone number" });
       return false;
     } else {
@@ -108,7 +108,7 @@ const Signup = () => {
 
     // التحقق من رقم مصري بصيغة +20 ومقدمات الشركات
     const egyptianPhoneRegex = /^\+20(10|11|12|15)\d{8}$/;
-    if (!egyptianPhoneRegex.test(user.Phone.trim())) {
+    if (!egyptianPhoneRegex.test(user.phone.trim())) {
       Seterror({
         ...errors,
         PhoneError: "- Please enter a vaild phone number with country code +20",
@@ -118,7 +118,7 @@ const Signup = () => {
       Seterror({ ...errors, PhoneError: "" });
     }
 
-    const passErr = validatePass(user.Password, "password"); // استدعاء الفانكشن
+    const passErr = validatePass(user.password, "password"); // استدعاء الفانكشن
     const confirmpassErr = validatePass(
       user.ConfirmPassword,
       "a Confirm password"
@@ -138,7 +138,7 @@ const Signup = () => {
       Seterror({ ...errors, ConfirmPasswordError: "" });
     }
 
-    if (user.Password !== user.ConfirmPassword) {
+    if (user.password !== user.ConfirmPassword) {
       setIsPass("- Passwords do not match.");
       return false;
     } else {
@@ -151,6 +151,25 @@ const Signup = () => {
     } else {
       setAgreeError("");
     }
+
+    const formData = new FormData();
+
+    formData.append("firstName",user.firstName);
+    formData.append("lastName",user.lastName);
+    formData.append("email",user.email);
+    formData.append("password",user.password);
+    formData.append("phone",user.phone);
+
+    const req = await fetch("https://dummyjson.com/users/add", {
+      //dah el route elly hab3at 3lyh data
+      method: "post", //eb3at data
+      // headers: { "Content-Type": "application/json" }, //gomla mn el mawke3 34an yfham elly bb3ato dah eno el type bta3o json
+      body: formData, //bb3at fy el body dah el data bta3ty 3la 4kl object 
+      
+    });
+
+    const res = await req.json();
+    console.log(res);
 
     navigate("/login");
   };
@@ -189,10 +208,10 @@ const Signup = () => {
                   {errors.FirstnameError ? errors.FirstnameError : "First Name"}
                 </Typography>
                 <Input
-                  value={user.Firstname}
+                  value={user.firstName}
                   onChange={(e) => {
                     const value = e.target.value;
-                    Setuser({ ...user, Firstname: value });
+                    Setuser({ ...user, firstName: value });
                     // validation أثناء الكتابة
                     const firstnameErr = validateName(value, "first name");
                     Seterror({ ...errors, FirstnameError: firstnameErr });
@@ -212,10 +231,10 @@ const Signup = () => {
                   {errors.LastnameError ? errors.LastnameError : "Last Name"}
                 </Typography>
                 <Input
-                  value={user.Lastname}
+                  value={user.lastName}
                   onChange={(e) => {
                     const value = e.target.value;
-                    Setuser({ ...user, Lastname: value });
+                    Setuser({ ...user, lastName: value });
                     const lastnameErr = validateName(value, "last name");
                     Seterror({ ...errors, LastnameError: lastnameErr });
                   }}
@@ -234,10 +253,10 @@ const Signup = () => {
                   {errors.SignupEmailError ? errors.SignupEmailError : "Email"}
                 </Typography>
                 <Input
-                  value={user.SignupEmail}
+                  value={user.email}
                   onChange={(e) => {
                     const value = e.target.value;
-                    Setuser({ ...user, SignupEmail: value });
+                    Setuser({ ...user, email: value });
 
                     let emailErr = "";
                     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -265,10 +284,10 @@ const Signup = () => {
                   {errors.PhoneError ? errors.PhoneError : "Phone Number"}
                 </Typography>
                 <Input
-                  value={user.Phone}
+                  value={user.phone}
                   onChange={(e) => {
                     const value = e.target.value;
-                    Setuser({ ...user, Phone: value });
+                    Setuser({ ...user, phone: value });
 
                     let phoneErr = "";
                     const egyptianPhoneRegex = /^\+20(10|11|12|15)\d{8}$/;
@@ -295,10 +314,10 @@ const Signup = () => {
                   {errors.PasswordError ? errors.PasswordError : "Password"}
                 </Typography>
                 <Input
-                  value={user.Password}
+                  value={user.password}
                   onChange={(e) => {
                     const value = e.target.value;
-                    Setuser({ ...user, Password: value });
+                    Setuser({ ...user, password: value });
                     const passErr = validatePass(value, "password");
                     Seterror({ ...errors, PasswordError: passErr });
 
@@ -334,7 +353,7 @@ const Signup = () => {
                     const confErr = validatePass(value, "Confirm password");
                     Seterror({ ...errors, ConfirmPasswordError: confErr });
 
-                    if (user.Password && user.Password !== value)
+                    if (user.password && user.password !== value)
                       setIsPass("- Passwords do not match.");
                     else setIsPass("");
                   }}
@@ -347,13 +366,15 @@ const Signup = () => {
                   }}
                 />
                 {IsPass && (
-                  <Typography color="red" variant="small" className="-mt-4">
-                    <h1>{IsPass}</h1>
-                    <h1>
+                  <div>
+                    <Typography color="red" variant="small" className="-mt-4 mb-4">
+                      {IsPass}
+                    </Typography>
+                    <Typography color="red" variant="small" className="-mt-4">
                       Please make sure the password and confirm password fields
                       match.
-                    </h1>
-                  </Typography>
+                    </Typography>
+                  </div>
                 )}
               </div>
             </Card>
