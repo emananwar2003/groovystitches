@@ -1,11 +1,10 @@
 import { useState } from "react";
+import Banner from "./../../../components/homecomponents/Banner";
+import CarouselHome from "./../../../components/homecomponents/CarouselHome";
+import Homecard from "../../../components/homecomponents/Homecard";
+import Washing from "./../../../components/homecomponents/Washing";
+import Footer from "../../../components/footer/Footer";
 import FakeComp from "../FakeComponent/FakeComp";
-import CarouselHome from "../../components/homecomponents/CarouselHome";
-import Homecard from "../../components/homecomponents/Homecard";
-import Washing from "../../components/homecomponents/Washing";
-import Banner from "../../components/homecomponents/Banner";
-// import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
 
 const Home = () => {
   const [trending, setTrending] = useState([
@@ -41,12 +40,12 @@ const Home = () => {
   return (
     <div className="flex  flex-col justify-center items-center bg-yellow-50 gap-20">
       {/* <Header></Header> */}
-      <FakeComp></FakeComp>
+      <FakeComp />
       <Banner />
       <CarouselHome trending={trending} />
       <Homecard />
       <Washing />
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };
