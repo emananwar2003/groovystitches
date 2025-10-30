@@ -1,7 +1,7 @@
 import React from "react";
 import logoImage from "/NewsImages/logo.png";
-import { useCart } from "../../contextapi/Cartcontext";
 import { Link } from "react-router-dom";
+import { useCart } from "../../../contextapi/Cartcontext";
 
 const Cart = () => {
   const {

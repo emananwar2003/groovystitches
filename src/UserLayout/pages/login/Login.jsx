@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contextapi/Authcontext";
+import { useAuth } from "../../../contextapi/Authcontext";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -75,7 +75,6 @@ const Login = () => {
       login(dummyUser);
       navigate("/");
     }
-  
   };
 
   return (
