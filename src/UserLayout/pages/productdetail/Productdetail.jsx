@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
-
+import { useCart } from "../../contextapi/Cartcontext";
 const Productdetail = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
 
   const products = [
     {
       id: "0",
       name: "Bubble Gum Bag",
-      price: "$95.00",
+      price: 95.0, // removed by basem cuz it was a string not a number NaN
       image: "/bublegum.jpg",
       description:
         "Stylish and colorful bag made from premium materials — perfect for everyday use. Combines fashion and comfort in one trendy design.",
@@ -15,7 +16,7 @@ const Productdetail = () => {
     {
       id: "1",
       name: "Mashrom",
-      price: "$120.00",
+      price: 120.0,
       image: "/mashroum.jpg",
       description:
         "A modern smartwatch that helps you track your health and stay connected — elegant and functional for every occasion.",
@@ -23,7 +24,7 @@ const Productdetail = () => {
     {
       id: "2",
       name: "Sobya Bag",
-      price: "$70.00",
+      price: 70.0,
       image: "/sobya.jpg",
       description:
         "Experience immersive sound and comfort for long gaming sessions. Sleek design with crystal-clear audio.",
@@ -45,7 +46,10 @@ const Productdetail = () => {
         <p className="text-gray-700 mb-2">Price: {product?.price}</p>
         <p className="text-gray-600">{product?.description}</p>
 
-        <button className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition">
+        <button
+          onClick={() => addToCart(product)}
+          className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition"
+        >
           Add to Cart
         </button>
         <button className="mt-3 w-full bg-deep-orange-400 text-white py-2 rounded-lg hover:bg-deep-orange-500 transition">

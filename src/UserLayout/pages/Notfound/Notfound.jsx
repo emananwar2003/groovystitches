@@ -3,7 +3,7 @@
 const Notfound = () => {
     return (
         <div>
-            
+         hello   
         </div>
     )
 }
