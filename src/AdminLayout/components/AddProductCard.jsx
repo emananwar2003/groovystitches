@@ -14,7 +14,7 @@ const AddProductCard = () => {
         <Typography variant="h5" color="blue-gray" className="mb-2">
           Add Product
         </Typography>
-        <Typography>Add a new poduct for your site.</Typography>
+        <Typography>Add a new product to your site.</Typography>
       </CardBody>
       <Link to="add-product">
         <CardFooter className="pt-0">
