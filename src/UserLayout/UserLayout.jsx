@@ -9,8 +9,10 @@ import Products from "./pages/products/Products";
 import Productdetail from "./pages/productdetail/Productdetail";
 import News from "./pages/news/News";
 import Notfound from "./pages/Notfound/Notfound";
-import { Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Protectcart from "../contextapi/Protectcart";
+
+
 
 
 
@@ -28,7 +30,7 @@ const UserLayout = () => {
               <Check />
             </Protectcart>
           }
-        ></Route>
+        />
         <Route path="login" element={<Login />} />
         <Route path="sign" element={<Signup />} />
         <Route path="products" element={<Products />} />
