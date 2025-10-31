@@ -79,7 +79,7 @@ const EditProductView = () => {
             </svg>
             <div>
               <p className="font-semibold">Success!</p>
-              <p className="text-sm">Product added successfully.</p>
+              <p className="text-sm">Product edited successfully.</p>
             </div>
             <button
               onClick={() => setShowSuccess(false)}
