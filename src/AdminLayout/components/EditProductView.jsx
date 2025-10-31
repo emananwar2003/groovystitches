@@ -183,7 +183,7 @@ const EditProductView = () => {
                 type="submit"
                 className="flex-1 bg-deep-orange-400 text-white py-3 rounded-lg font-semibold hover:bg-deep-orange-600 transition-colors shadow-md hover:shadow-lg"
               >
-                confirm Edit
+                Confirm Edit
               </button>
               <button
                 type="button"
