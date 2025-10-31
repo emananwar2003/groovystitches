@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const EditProductView = () => {
+  const location = useLocation();
+  const { product } = location.state || {};
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    image: "",
+    name: product?.name || "",
+    price: product?.price || "",
+    image: product?.image || "",
   });
 
   const [previewImage, setPreviewImage] = useState(null);
@@ -38,7 +41,7 @@ const EditProductView = () => {
     setShowSuccess(true);
     setFormData({
       name: "",
-      description: "",
+      price: "",
       image: "",
     });
     setPreviewImage(null);
@@ -50,7 +53,7 @@ const EditProductView = () => {
   const handleReset = () => {
     setFormData({
       name: "",
-      description: "",
+      price: "",
       image: "",
     });
     setPreviewImage(null);
@@ -99,18 +102,17 @@ const EditProductView = () => {
           </div>
         </div>
       )}
-
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl p-8 ">
           <h1 className="text-3xl font-bold text-black mb-2 text-center">
-            Add New Product
+            Edit Product
           </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex flex-col items-center mb-6">
               <div className="relative w-32 h-32 mb-4">
-                {previewImage ? (
+                {previewImage || formData.image ? (
                   <img
-                    src={previewImage}
+                    src={previewImage || formData.image}
                     alt="Preview"
                     className="w-full h-full object-cover rounded-full border-4 border-indigo-200"
                   />
@@ -139,7 +141,7 @@ const EditProductView = () => {
                 )}
               </div>
               <label className="cursor-pointer bg-deep-orange-400 text-white px-6 py-2 rounded-lg hover:bg-deep-orange-600 transition-colors">
-                <span>Choose Image</span>
+                <span>Replace Image</span>
                 <input
                   type="file"
                   accept="image/*"
@@ -164,15 +166,15 @@ const EditProductView = () => {
             </div>
             <div>
               <label className="block text-black font-semibold mb-2">
-                Description
+                Price
               </label>
               <textarea
-                name="description"
-                value={formData.description}
+                name="price"
+                value={formData.price}
                 onChange={handleChange}
-                placeholder="Enter description about product"
+                placeholder="Enter product price"
                 required
-                rows="3"
+                rows="1"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
               />
             </div>
