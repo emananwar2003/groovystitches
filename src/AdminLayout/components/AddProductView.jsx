@@ -4,6 +4,7 @@ const AddProductView = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
+    description: "",
     image: "",
   });
 
@@ -39,6 +40,7 @@ const AddProductView = () => {
     setFormData({
       name: "",
       price: "",
+      description: "",
       image: "",
     });
     setPreviewImage(null);
@@ -51,6 +53,7 @@ const AddProductView = () => {
     setFormData({
       name: "",
       price: "",
+      description: "",
       image: "",
     });
     setPreviewImage(null);
@@ -157,7 +160,7 @@ const AddProductView = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Enter product's name"
+                placeholder="Enter product's name."
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
               />
@@ -170,11 +173,27 @@ const AddProductView = () => {
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                placeholder="Enter product price"
+                placeholder="Enter product price."
                 required
                 rows="1"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
               />
+            </div>
+            <div>
+              <label className="block text-black font-semibold mb-2">
+                Description
+              </label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Descripe your product."
+                required
+                rows="3"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg
+             focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+             outline-none transition resize-y"
+              ></textarea>
             </div>
             <div className="flex gap-4 pt-4">
               <button

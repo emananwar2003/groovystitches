@@ -8,6 +8,7 @@ const EditProductView = () => {
     name: product?.name || "",
     price: product?.price || "",
     image: product?.image || "",
+    description: product?.description || "",
   });
 
   const [previewImage, setPreviewImage] = useState(null);
@@ -42,6 +43,7 @@ const EditProductView = () => {
     setFormData({
       name: "",
       price: "",
+      description: "",
       image: "",
     });
     setPreviewImage(null);
@@ -54,6 +56,7 @@ const EditProductView = () => {
     setFormData({
       name: "",
       price: "",
+      description: "",
       image: "",
     });
     setPreviewImage(null);
@@ -177,6 +180,22 @@ const EditProductView = () => {
                 rows="1"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
               />
+            </div>
+            <div>
+              <label className="block text-black font-semibold mb-2">
+                Description
+              </label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Descripe your product."
+                required
+                rows="3"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg
+             focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+             outline-none transition resize-y"
+              ></textarea>
             </div>
             <div className="flex gap-4 pt-4">
               <button
