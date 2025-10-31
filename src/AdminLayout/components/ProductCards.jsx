@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const ProductCards = ({ product }) => {
   const show = () => {
     Swal.fire({
-      title: "Do you want to delete the product?",
+      title: "Do you want to delete this product?",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Delete",
