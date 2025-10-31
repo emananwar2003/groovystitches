@@ -16,7 +16,7 @@ const EditProductCard = () => {
         </Typography>
         <Typography>Edit an product from your site.</Typography>
       </CardBody>
-      <Link to="edit-product">
+      <Link to="product-list">
         <CardFooter className="pt-0">
           <Button>Edit Product</Button>
         </CardFooter>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const AddProductView = () => {
   const [formData, setFormData] = useState({
     name: "",
-    description: "",
+    price: "",
     image: "",
   });
 
@@ -38,7 +38,7 @@ const AddProductView = () => {
     setShowSuccess(true);
     setFormData({
       name: "",
-      description: "",
+      price: "",
       image: "",
     });
     setPreviewImage(null);
@@ -50,7 +50,7 @@ const AddProductView = () => {
   const handleReset = () => {
     setFormData({
       name: "",
-      description: "",
+      price: "",
       image: "",
     });
     setPreviewImage(null);
@@ -164,15 +164,15 @@ const AddProductView = () => {
             </div>
             <div>
               <label className="block text-black font-semibold mb-2">
-                Description
+                Price
               </label>
               <textarea
-                name="description"
-                value={formData.description}
+                name="price"
+                value={formData.price}
                 onChange={handleChange}
-                placeholder="Enter description about product"
+                placeholder="Enter product price"
                 required
-                rows="3"
+                rows="1"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
               />
             </div>
