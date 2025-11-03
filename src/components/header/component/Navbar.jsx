@@ -118,8 +118,8 @@ export default function HeaderNavbar() {
     <Navbar className="max-w-screen-3xl !rounded px-4 py-2 lg:px-8 lg:py-4 bg-orange-50 shadow-lg">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
-          as="a"
-          href="https://groovystitches.vercel.app"
+          as={Link}
+          to="/"
           className="mr-4 cursor-pointer py-1.5 font-medium flex items-center gap-2"
         >
           <img
@@ -133,7 +133,7 @@ export default function HeaderNavbar() {
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="flex items-center gap-x-1 ml-4">
-          <a href="https://groovystitches.vercel.app/login">
+          <Link to="/login">
             <Button
               variant="filled"
               size="sm"
@@ -141,16 +141,16 @@ export default function HeaderNavbar() {
             >
               <span>Log In</span>
             </Button>
-          </a>
-          <a href="https://groovystitches.vercel.app/sign">
+          </Link>
+          <Link to="/sign">
             <Button
               variant="filled"
               size="sm"
               className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
             >
-              <span>Sign up</span>
+              <span>sign up</span>
             </Button>
-          </a>
+          </Link>
         </div>
         <IconButton
           variant="text"
@@ -194,10 +194,7 @@ export default function HeaderNavbar() {
         <div className="container mx-auto">
           {navList}
           <div className="flex items-center gap-x-1">
-            <a
-              href="https://groovystitches.vercel.app/login"
-              className="w-full"
-            >
+            <Link to="/login" className="w-full">
               <Button
                 fullWidth
                 variant="filled"
@@ -206,17 +203,18 @@ export default function HeaderNavbar() {
               >
                 <span>Log In</span>
               </Button>
-            </a>
-            <a href="https://groovystitches.vercel.app/sign" className="w-full">
+            </Link>
+
+            <Link to="/sign" className="w-full">
               <Button
                 fullWidth
                 variant="filled"
                 size="sm"
-                className="bg-orange-800 text-white hover:bg-orange-900"
+                className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
               >
-                <span>Sign up</span>
+                <span>sign up</span>
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </MobileNav>
