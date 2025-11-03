@@ -1,5 +1,5 @@
 import AboutUs from "./../../../components/AboutComponents/AboutUs";
-import Header from "./../../../components/NewsComponents/Header";
+import Header from "./../../../components/AboutComponents/Header";
 import Footer from "./../../../components/NewsComponents/Footer";
 
 const About = () => {
