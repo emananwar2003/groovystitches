@@ -22,7 +22,14 @@ const UserLayout = () => {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="checkout" element={<Check />} />
+        <Route
+          path="checkout"
+          element={
+            <Protectcart>
+              <Check />
+            </Protectcart>
+          }
+        />
         <Route path="login" element={<Login />} />
         <Route path="sign" element={<Signup />} />
         <Route path="products" element={<Products />} />
