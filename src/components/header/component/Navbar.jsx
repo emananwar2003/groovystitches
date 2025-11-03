@@ -19,8 +19,7 @@ export default function HeaderNavbar() {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {/* ABOUT */}
+    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
       <Typography
         as="li"
         variant="small"
@@ -55,8 +54,6 @@ export default function HeaderNavbar() {
           About
         </a>
       </Typography>
-
-      {/* NEWS */}
       <Typography
         as="li"
         variant="small"
@@ -96,8 +93,6 @@ export default function HeaderNavbar() {
           News
         </a>
       </Typography>
-
-      {/* CART */}
       <Typography
         as="li"
         variant="small"
@@ -127,7 +122,6 @@ export default function HeaderNavbar() {
       </Typography>
     </ul>
   );
-
   return (
     <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-orange-100 shadow-lg">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
@@ -145,33 +139,27 @@ export default function HeaderNavbar() {
             Groovy Stitches
           </span>
         </Typography>
-
         <div className="hidden lg:block">{navList}</div>
-
-        {/* Desktop Buttons */}
-        <div className="flex items-center gap-x-1 ">
+        <div className="flex items-center gap-x-1 ml-4">
           <a href="https://groovystitches.vercel.app/login">
             <Button
-              variant="text"
+              variant="filled"
               size="sm"
-              className="hidden lg:inline-block text-orange-800"
+              className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
             >
               <span>Log In</span>
             </Button>
           </a>
-
           <a href="https://groovystitches.vercel.app/sign">
             <Button
               variant="filled"
               size="sm"
-              className="bg-orange-800 hover:bg-orange-750 text-white"
+              className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
             >
               <span>Sign up</span>
             </Button>
           </a>
         </div>
-
-        {/* Mobile Menu Button */}
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -210,8 +198,6 @@ export default function HeaderNavbar() {
           )}
         </IconButton>
       </div>
-
-      {/* Mobile View */}
       <MobileNav open={openNav}>
         <div className="container mx-auto">
           {navList}
@@ -220,13 +206,22 @@ export default function HeaderNavbar() {
               href="https://groovystitches.vercel.app/login"
               className="w-full"
             >
-              <Button fullWidth variant="text" size="sm">
+              <Button
+                fullWidth
+                variant="filled"
+                size="sm"
+                className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
+              >
                 <span>Log In</span>
               </Button>
             </a>
-
             <a href="https://groovystitches.vercel.app/sign" className="w-full">
-              <Button fullWidth variant="gradient" size="sm">
+              <Button
+                fullWidth
+                variant="filled"
+                size="sm"
+                className="bg-orange-800 text-white hover:bg-orange-900"
+              >
                 <span>Sign up</span>
               </Button>
             </a>
