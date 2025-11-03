@@ -11,10 +11,13 @@ import News from "./pages/news/News";
 import Notfound from "./pages/Notfound/Notfound";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
+import HeaderNavbar from "./../components/header/component/Navbar";
+import Footer from "./../components/footer/Footer";
 
 const UserLayout = () => {
   return (
     <div>
+      <HeaderNavbar />
       <Routes>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
@@ -27,6 +30,7 @@ const UserLayout = () => {
         <Route path="news" element={<News />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
