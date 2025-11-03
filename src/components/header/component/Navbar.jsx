@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   MobileNav,
@@ -47,12 +48,9 @@ export default function HeaderNavbar() {
           <rect x="4" y="6.5" width="7" height="1.3" rx="0.6" fill="white" />
           <rect x="4" y="9" width="6" height="1.3" rx="0.6" fill="white" />
         </svg>
-        <a
-          href="https://groovystitches.vercel.app/about"
-          className="flex items-center text-orange-800"
-        >
+        <Link to="/about" className="flex items-center text-orange-800">
           About
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -86,12 +84,9 @@ export default function HeaderNavbar() {
             fill="#FFFFFF"
           />
         </svg>
-        <a
-          href="https://groovystitches.vercel.app/news"
-          className="flex items-center text-orange-800"
-        >
+        <Link to="/news" className="flex items-center text-orange-800">
           News
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -113,18 +108,15 @@ export default function HeaderNavbar() {
           <circle cx="9" cy="19" r="1.8" fill="#FF7A00" />
           <circle cx="18" cy="19" r="1.8" fill="#FF7A00" />
         </svg>
-        <a
-          href="https://groovystitches.vercel.app/cart"
-          className="flex items-center text-orange-800"
-        >
+        <Link to="/cart" className="flex items-center text-orange-800">
           Cart
-        </a>
+        </Link>
       </Typography>
     </ul>
   );
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-orange-100 shadow-lg">
-      <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
+    <Navbar className="max-w-screen-3xl !rounded px-4 py-2 lg:px-8 lg:py-4 bg-orange-50 shadow-lg">
+      <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
           href="https://groovystitches.vercel.app"

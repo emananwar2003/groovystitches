@@ -5,6 +5,7 @@ import DashBoard from "./pages/DashBoard";
 import EditProductView from "./components/EditProductView";
 import AddProductView from "./components/AddProductView";
 import ProductList from "./components/ProductList";
+import HeaderNavbar from "./../components/header/component/Navbar";
 
 const AdminLayout = () => {
   const [products] = useState([
@@ -26,6 +27,7 @@ const AdminLayout = () => {
   ]);
   return (
     <>
+      <HeaderNavbar />
       <Routes>
         <Route index element={<DashBoard />} />
         <Route
