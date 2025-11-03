@@ -13,6 +13,7 @@ import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import HeaderNavbar from "./../components/header/component/Navbar";
 import Footer from "./../components/footer/Footer";
+import Protectcart from "./../contextapi/Protectcart";
 
 const UserLayout = () => {
   return (
