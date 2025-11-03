@@ -10,15 +10,21 @@ import Productdetail from "./pages/productdetail/Productdetail";
 import News from "./pages/news/News";
 import Notfound from "./pages/Notfound/Notfound";
 import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
+import { Route , useLocation} from "react-router-dom";
 import HeaderNavbar from "./../components/header/component/Navbar";
 import Footer from "./../components/footer/Footer";
 import Protectcart from "./../contextapi/Protectcart";
 
+
+
 const UserLayout = () => {
+    const location = useLocation();
+ 
+    const hideHeader = location.pathname === "/login" || location.pathname === "/sign";
   return (
     <div>
-      <HeaderNavbar />
+      {!hideHeader && <HeaderNavbar />}
+
       <Routes>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
@@ -38,7 +44,7 @@ const UserLayout = () => {
         <Route path="news" element={<News />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
-      <Footer />
+      {!hideHeader && <Footer />}
     </div>
   );
 };
