@@ -133,7 +133,7 @@ export default function HeaderNavbar() {
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="flex items-center gap-x-1 ml-4">
-          <Link to="/login">
+          <Link to="/registration/login">
             <Button
               variant="filled"
               size="sm"
@@ -142,7 +142,7 @@ export default function HeaderNavbar() {
               <span>Log In</span>
             </Button>
           </Link>
-          <Link to="/sign">
+          <Link to="/registration/login">
             <Button
               variant="filled"
               size="sm"
@@ -194,7 +194,7 @@ export default function HeaderNavbar() {
         <div className="container mx-auto">
           {navList}
           <div className="flex items-center gap-x-1">
-            <Link to="/login" className="w-full">
+            <Link to="/registration/login" className="w-full">
               <Button
                 fullWidth
                 variant="filled"
@@ -205,7 +205,7 @@ export default function HeaderNavbar() {
               </Button>
             </Link>
 
-            <Link to="/sign" className="w-full">
+            <Link to="/registration/sign" className="w-full">
               <Button
                 fullWidth
                 variant="filled"
