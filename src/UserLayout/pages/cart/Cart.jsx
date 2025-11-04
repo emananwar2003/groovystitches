@@ -26,7 +26,6 @@ const Cart = () => {
 
         <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <div className="space-y-4">
-            {/*  Checks if the cart has items if "True" shows cart is epmty else shows the item */}
             {cartItems.length === 0 ? (
               <p className="text-center text-gray-500">Your cart is empty.</p>
             ) : (
@@ -72,16 +71,19 @@ const Cart = () => {
               ))
             )}
           </div>
-          <div>
+
+          {/* BUTTONS SIDE BY SIDE & RESPONSIVE */}
+          <div className="flex justify-center items-center gap-4 mt-8">
             <button
               onClick={clearCart}
-              className="bg-[#ce2424] text-white w-44 py-3 rounded-full text-lg font-bold hover:bg-[#d9433b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg mt-8 mr-5"
+              className="bg-[#ce2424] text-white px-6 py-3 rounded-full text-lg font-bold hover:bg-[#d9433b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg w-1/2"
             >
               Clear
             </button>
+
             <Link
               to="/checkout"
-              className="text-center bg-[#E98F4B] text-white p-12 py-4 rounded-full text-lg font-bold hover:bg-[#d97f3b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg mt-8"
+              className="bg-[#E98F4B] text-white px-6 py-3 rounded-full text-lg font-bold hover:bg-[#d97f3b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg w-1/2 text-center"
             >
               Checkout
             </Link>
