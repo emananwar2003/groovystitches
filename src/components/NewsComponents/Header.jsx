@@ -13,7 +13,7 @@ const Header = () => {
           />
         </div>
         <p className="text-xl leading-relaxe text-gray-800 hover:text-black">
-          Where every stitch tells a story.
+          ✨Where every stitch tells a story.✨
         </p>
       </header>
     </div>

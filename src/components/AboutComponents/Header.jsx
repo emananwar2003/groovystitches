@@ -13,7 +13,7 @@ const Header = () => {
           className="w-32 h-32 mx-auto mb-4 transition-transform transform hover:scale-125"
         />
         <p className="text-lg text-gray-700 hover:text-black">
-          Where every stitch tells a story.
+          ✨Where every stitch tells a story.✨
         </p>
       </div>
     </div>
