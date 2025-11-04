@@ -142,7 +142,7 @@ export default function HeaderNavbar() {
               <span>Log In</span>
             </Button>
           </Link>
-          <Link to="/registration/login">
+          <Link to="/registration/Signup">
             <Button
               variant="filled"
               size="sm"
@@ -204,8 +204,7 @@ export default function HeaderNavbar() {
                 <span>Log In</span>
               </Button>
             </Link>
-
-            <Link to="/registration/sign" className="w-full">
+            <Link to="/registration/Signup" className="w-full">
               <Button
                 fullWidth
                 variant="filled"

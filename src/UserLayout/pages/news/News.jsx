@@ -1,8 +1,3 @@
-// import React from "react";
-// import Header from "../../components/NewsComponents/Header";
-// import NewCollection from "../../components/NewsComponents/NewCollection";
-// import Upcoming from "../../components/NewsComponents/UpComing";
-// import Footer from "../../components/NewsComponents/Footer";
 import Header from "./../../../components/NewsComponents/Header";
 import NewCollection from "./../../../components/NewsComponents/NewCollection";
 import UpComing from "./../../../components/NewsComponents/UpComing";
