@@ -106,7 +106,6 @@ const Signup = () => {
       Seterror({ ...errors, PhoneError: "" });
     }
 
-    // التحقق من رقم مصري بصيغة +20 ومقدمات الشركات
     const egyptianPhoneRegex = /^\+20(10|11|12|15)\d{8}$/;
     if (!egyptianPhoneRegex.test(user.phone.trim())) {
       Seterror({
@@ -118,7 +117,7 @@ const Signup = () => {
       Seterror({ ...errors, PhoneError: "" });
     }
 
-    const passErr = validatePass(user.password, "password"); // استدعاء الفانكشن
+    const passErr = validatePass(user.password, "password");
     const confirmpassErr = validatePass(
       user.ConfirmPassword,
       "a Confirm password"
@@ -154,18 +153,17 @@ const Signup = () => {
 
     const formData = new FormData();
 
-    formData.append("firstName",user.firstName);
-    formData.append("lastName",user.lastName);
-    formData.append("email",user.email);
-    formData.append("password",user.password);
-    formData.append("phone",user.phone);
+    formData.append("firstName", user.firstName);
+    formData.append("lastName", user.lastName);
+    formData.append("email", user.email);
+    formData.append("password", user.password);
+    formData.append("phone", user.phone);
 
     const req = await fetch("https://dummyjson.com/users/add", {
       //dah el route elly hab3at 3lyh data
       method: "post", //eb3at data
       // headers: { "Content-Type": "application/json" }, //gomla mn el mawke3 34an yfham elly bb3ato dah eno el type bta3o json
-      body: formData, //bb3at fy el body dah el data bta3ty 3la 4kl object 
-      
+      body: formData, //bb3at fy el body dah el data bta3ty 3la 4kl object
     });
 
     const res = await req.json();
@@ -194,9 +192,10 @@ const Signup = () => {
           className="w-full flex flex-col items-center"
           onSubmit={HandelNewUser}
         >
-          <Typography color="black" className="mt-1 font-normal text-lg">
-            Create New User
-          </Typography>
+          <Typography
+            color="black"
+            className="mt-1 font-normal text-lg"
+          ></Typography>
           <div className="flex flex-col lg:flex-row justify-center items-center gap-0 lg:gap-10">
             <Card color="transparent" shadow={false}>
               <div className="mb-1 flex flex-col gap-6 p-5">
@@ -367,7 +366,11 @@ const Signup = () => {
                 />
                 {IsPass && (
                   <div>
-                    <Typography color="red" variant="small" className="-mt-4 mb-4">
+                    <Typography
+                      color="red"
+                      variant="small"
+                      className="-mt-4 mb-4"
+                    >
                       {IsPass}
                     </Typography>
                     <Typography color="red" variant="small" className="-mt-4">
@@ -402,7 +405,7 @@ const Signup = () => {
             />
             {AgreeError && (
               <Typography color="red" variant="small" className="mt-1">
-                {AgreeError} {/* هيعرض كلام لو في ايرور */}
+                {AgreeError}
               </Typography>
             )}
             <Button type="submit" className="mt-6 w-full sm:w-auto">
