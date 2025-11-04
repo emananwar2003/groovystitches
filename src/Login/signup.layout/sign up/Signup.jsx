@@ -412,7 +412,10 @@ const Signup = () => {
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?
-              <Link to="/login" className="font-medium text-gray-900">
+              <Link
+                to="/registration/login"
+                className="font-medium text-gray-900"
+              >
                 Login
               </Link>
             </Typography>
