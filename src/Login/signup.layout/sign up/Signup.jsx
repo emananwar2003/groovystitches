@@ -320,7 +320,6 @@ const Signup = () => {
                     const passErr = validatePass(value, "password");
                     Seterror({ ...errors, PasswordError: passErr });
 
-                    // لو confirm مكتوبة، نتحقق كمان من التطابق
                     if (user.ConfirmPassword && user.ConfirmPassword !== value)
                       setIsPass("- Passwords do not match.");
                     else setIsPass("");
