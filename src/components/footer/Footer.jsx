@@ -20,8 +20,8 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-orange-50">
-      <div className="mx-auto w-full max-w-7xl px-8 py-5">
+    <footer className="relative w-full bg-orange-50 shadow-inner">
+      <div className="mx-auto w-full max-w-7xl px-8 py-5 md:px-12 lg:px-16 lg:py-10">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <div>
             <Typography variant="h5" className="mb-2">
