@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export function CardDefault({ item: { id, img, price, details, title } }) {
   return (
     <div className="p-5">
-      <Card className="mt-6 w-96 hover:shadow-2xl transition-all duration-300">
+      <Card className="mt-6 w-96 hover:shadow-2xl transition-all duration-300 self-center bg-[#fef7e5]">
         <CardHeader color="blue-gray" className="relative h-56">
           <img src={img} alt={title} className="h-full w-full object-cover" />
         </CardHeader>
@@ -30,7 +30,7 @@ export function CardDefault({ item: { id, img, price, details, title } }) {
         </CardBody>
         <CardFooter className="pt-0">
           <Link to={`/productdetail/${id}`}>
-            <Button className="hover:bg-orange-800 bg-bannercolor">
+            <Button className="hover:bg-orange-800 bg-[#f49c30]">
               More Details
             </Button>
           </Link>

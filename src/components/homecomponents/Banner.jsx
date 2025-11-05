@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div className="w-full bg-bannercolor h-auto flex flex-col sm:flex sm:flex-row md:flex md:flex-row lg:flex lg:flex-row xl:flex xl:flex-row ">
+    <div className="w-[98%] rounded-xl bg-[#a7541e] h-auto flex flex-col sm:flex sm:flex-row md:flex md:flex-row lg:flex lg:flex-row xl:flex xl:flex-row ">
       <div className=" w-3/4 sm:w-3/4 md:w-1/2 lg:w-1/2 xl:w-1/2 flex px-4  justify-center flex-col py-5 items-center self-center h-full ">
         <img
           src="/homebanner.jpg "
@@ -25,7 +25,7 @@ const Banner = () => {
         <Link to="/news">
           <Button
             variant="filled"
-            className="bg-orange-800 text-bannertext self-center"
+            className="bg-[#f49c30] text-bannertext self-center"
           >
             check it out{" "}
           </Button>

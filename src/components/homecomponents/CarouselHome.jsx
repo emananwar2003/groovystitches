@@ -6,7 +6,7 @@ const CarouselHome = ({ trending }) => {
 
     const CarouselDefault = ({ trending }) => {
         return (
-            <Carousel className="rounded-xl bg-yellow-100 ">
+            <Carousel className="rounded-3xl bg-[#ffebc8]   w-[98%]  self-center">
                 
                 {trending.map((item) => (
                     <TrendingCard key={item.id} item={item} />

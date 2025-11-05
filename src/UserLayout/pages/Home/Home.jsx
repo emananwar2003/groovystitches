@@ -35,7 +35,7 @@ const Home = () => {
     },
   ]);
   return (
-    <div className="flex  flex-col justify-center items-center bg-yellow-50 gap-20">
+    <div className="flex  flex-col justify-center items-center bg-[#Fdf3e6] gap-20">
       <Banner />
       <CarouselHome trending={trending} />
       <Homecard />
