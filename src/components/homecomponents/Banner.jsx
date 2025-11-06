@@ -18,9 +18,9 @@ const Banner = () => {
           Have you checked our latest news yet?
         </h1>
         <span className="text-bannertext">
-          check out our lattest hottest news about Groovy’s new collections ,
+          Check out our lattest hottest news about Groovy’s new collections ,
           and next bazars ,sales and much more all you need is to be uptodate to
-          our news so you dont mess out on anything new
+          our news so you dont mess out on anything new.
         </span>
         <Link to="/news">
           <Button
