@@ -34,7 +34,7 @@ export function BlogCard() {
           for you !
         </Typography>
         <Link to="/products">
-          <Button className=" bg-orange-800 hover:bg-orange-900">
+          <Button className="bg-orange-800 hover:bg-orange-900">
             {" "}
             see all products
           </Button>
