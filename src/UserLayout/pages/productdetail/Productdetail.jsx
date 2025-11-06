@@ -47,7 +47,7 @@ const Productdetail = () => {
 
       <div className="flex flex-col gap-2 justify-center h-3/6 ">
         <h1 className="text-3xl font-bold mb-4">{product?.title}</h1>
-        <p className="text-gray-700 mb-2">Price: {product?.price}</p>
+        <p className="text-gray-700 mb-2">Price: {product?.price} EGP</p>
         <p className="text-gray-600">{product?.details}</p>
 
         <button

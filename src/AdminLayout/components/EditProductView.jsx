@@ -40,13 +40,6 @@ const EditProductView = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
-    setFormData({
-      name: "",
-      price: "",
-      description: "",
-      image: "",
-    });
-    setPreviewImage(null);
     setTimeout(() => {
       setShowSuccess(false);
     }, 5000);
@@ -105,8 +98,9 @@ const EditProductView = () => {
           </div>
         </div>
       )}
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl p-8 ">
+
+      <div className="max-w-2xl mx-auto pt-20">
+        <div className="bg-white rounded-2xl shadow-xl p-8">
           <h1 className="text-3xl font-bold text-black mb-2 text-center">
             Edit Product
           </h1>
@@ -153,6 +147,7 @@ const EditProductView = () => {
                 />
               </label>
             </div>
+
             <div>
               <label className="block text-black font-semibold mb-2">
                 Product Name
@@ -167,6 +162,7 @@ const EditProductView = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
               />
             </div>
+
             <div>
               <label className="block text-black font-semibold mb-2">
                 Price
@@ -181,6 +177,7 @@ const EditProductView = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
               />
             </div>
+
             <div>
               <label className="block text-black font-semibold mb-2">
                 Description
@@ -189,14 +186,13 @@ const EditProductView = () => {
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                placeholder="Descripe your product."
+                placeholder="Describe your product."
                 required
                 rows="3"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg
-             focus:ring-2 focus:ring-indigo-500 focus:border-transparent
-             outline-none transition resize-y"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-y"
               ></textarea>
             </div>
+
             <div className="flex gap-4 pt-4">
               <button
                 type="submit"

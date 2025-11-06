@@ -6,6 +6,7 @@ import EditProductView from "./components/EditProductView";
 import AddProductView from "./components/AddProductView";
 import ProductList from "./components/ProductList";
 import HeaderNavbar from "./../components/header/component/Navbar";
+import AddNewsView from "./components/AddNewsView";
 
 const AdminLayout = () => {
   const [products] = useState([
@@ -36,6 +37,7 @@ const AdminLayout = () => {
         />
         <Route path="add-product" element={<AddProductView />} />
         <Route path="edit-product" element={<EditProductView />} />
+        <Route path="add-news" element={<AddNewsView />} />
       </Routes>
     </>
   );
