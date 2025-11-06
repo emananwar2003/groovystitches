@@ -5,15 +5,19 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contextapi/Authcontext.jsx';
 import { CartProvider } from './contextapi/Cartcontext.jsx';
+import { FilterProvider } from './contextapi/FilterContext.jsx';
+
 
 createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <CartProvider>
-      <BrowserRouter>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </BrowserRouter>
-    </CartProvider>
-  </AuthProvider>
+  <FilterProvider>
+    <AuthProvider>
+      <CartProvider>
+        <BrowserRouter>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </BrowserRouter>
+      </CartProvider>
+    </AuthProvider>
+  </FilterProvider>
 );
