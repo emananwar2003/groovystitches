@@ -48,11 +48,11 @@ const ProductCards = ({ product }) => {
           </Typography>
           <div className="flex gap-3">
             <Link to="/admin/edit-product" state={{ product }}>
-              <Button color="orange" className="px-6">
+              <Button className=" bg-orange-800 hover:bg-orange-900 px-6">
                 Edit
               </Button>
             </Link>
-            <Button onClick={show} color="red" className="px-6">
+            <Button onClick={show} className="bg-red-500 hover:bg-red-700 px-6">
               Delete
             </Button>
           </div>

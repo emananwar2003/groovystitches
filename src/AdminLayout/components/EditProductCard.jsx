@@ -18,7 +18,9 @@ const EditProductCard = () => {
       </CardBody>
       <Link to="product-list">
         <CardFooter className="pt-0">
-          <Button>Edit Product</Button>
+          <Button className=" bg-orange-800 hover:bg-orange-900">
+            Edit Product
+          </Button>
         </CardFooter>
       </Link>
     </Card>

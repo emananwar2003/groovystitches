@@ -18,7 +18,9 @@ const AddProductCard = () => {
       </CardBody>
       <Link to="add-product">
         <CardFooter className="pt-0">
-          <Button>Add Product</Button>
+          <Button className=" bg-orange-800 hover:bg-orange-900">
+            Add Product
+          </Button>
         </CardFooter>
       </Link>
     </Card>
