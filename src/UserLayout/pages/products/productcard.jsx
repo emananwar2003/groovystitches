@@ -7,7 +7,7 @@ const ProductCard = ({ image, name, price }) => {
       <img src={image} alt={name} className="w-full  h-64 object-cover" />
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
-        <p className="text-blue-gray-500 font-bold mt-2">{price}</p>
+        <p className="text-blue-gray-500 font-bold mt-2">{price} egp</p>
       </div>
     </div>
   );

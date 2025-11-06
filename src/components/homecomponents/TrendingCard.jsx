@@ -25,7 +25,7 @@ export function CardDefault({ item: { id, img, price, details, title } }) {
           </Typography>
           <Typography className="text-">{details}</Typography>
           <Typography className="text-brown-600 font-extrabold hover:text-orange-800">
-            price : {price}le
+            price : {price}egp
           </Typography>
         </CardBody>
         <CardFooter className="pt-0">
