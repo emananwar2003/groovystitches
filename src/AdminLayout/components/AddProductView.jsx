@@ -109,7 +109,6 @@ const AddProductView = () => {
         </div>
       )}
 
-      {/* ✅ Centering wrapper added */}
       <div className="min-h-screen flex justify-center items-start pt-24">
         <div className="max-w-2xl w-full">
           <div className="bg-white rounded-2xl shadow-xl p-8 ">
