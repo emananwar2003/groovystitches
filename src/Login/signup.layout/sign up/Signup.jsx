@@ -211,7 +211,6 @@ const Signup = () => {
                   onChange={(e) => {
                     const value = e.target.value;
                     Setuser({ ...user, firstName: value });
-                    // validation أثناء الكتابة
                     const firstnameErr = validateName(value, "first name");
                     Seterror({ ...errors, FirstnameError: firstnameErr });
                   }}
@@ -407,7 +406,10 @@ const Signup = () => {
                 {AgreeError}
               </Typography>
             )}
-            <Button type="submit" className="mt-6 w-full sm:w-auto">
+            <Button
+              type="submit"
+              className="bg-orange-800 hover:bg-orange-900 mt-6 w-full sm:w-auto"
+            >
               Signup
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
