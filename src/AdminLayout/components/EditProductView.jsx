@@ -143,7 +143,7 @@ const EditProductView = () => {
                   </div>
                 )}
               </div>
-              <label className="cursor-pointer bg-deep-orange-400 text-white px-6 py-2 rounded-lg hover:bg-deep-orange-600 transition-colors">
+              <label className="cursor-pointer bg-orange-800 hover:bg-orange-900 text-white px-6 py-2 rounded-lg transition-colors">
                 <span>Replace Image</span>
                 <input
                   type="file"
@@ -200,7 +200,7 @@ const EditProductView = () => {
             <div className="flex gap-4 pt-4">
               <button
                 type="submit"
-                className="flex-1 bg-deep-orange-400 text-white py-3 rounded-lg font-semibold hover:bg-deep-orange-600 transition-colors shadow-md hover:shadow-lg"
+                className="flex-1 bg-orange-800 hover:bg-orange-900 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
               >
                 Confirm Edit
               </button>

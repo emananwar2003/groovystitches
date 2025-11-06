@@ -25,12 +25,12 @@ export function CardDefault({ item: { id, img, price, details, title } }) {
           </Typography>
           <Typography className="text-">{details}</Typography>
           <Typography className="text-brown-600 font-extrabold hover:text-orange-800">
-            price : {price}egp
+            Price : {price}EGP
           </Typography>
         </CardBody>
         <CardFooter className="pt-0">
           <Link to={`/productdetail/${id}`}>
-            <Button className="hover:bg-orange-800 bg-[#f49c30]">
+            <Button className=" bg-orange-800 hover:bg-orange-900">
               More Details
             </Button>
           </Link>

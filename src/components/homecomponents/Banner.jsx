@@ -25,7 +25,7 @@ const Banner = () => {
         <Link to="/news">
           <Button
             variant="filled"
-            className="bg-[#f49c30] text-bannertext self-center"
+            className="bg-orange-800 hover:bg-orange-900 text-bannertext self-center"
           >
             check it out{" "}
           </Button>

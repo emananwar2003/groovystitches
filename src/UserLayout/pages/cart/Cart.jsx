@@ -76,14 +76,14 @@ const Cart = () => {
           <div className="flex justify-center items-center gap-4 mt-8">
             <button
               onClick={clearCart}
-              className="bg-[#ce2424] text-white px-6 py-3 rounded-full text-lg font-bold hover:bg-[#d9433b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg w-1/2"
+              className="bg-red-500 text-white px-6 py-3 rounded-full text-lg font-bold hover:bg-red-700 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg w-1/2"
             >
               Clear
             </button>
 
             <Link
               to="/checkout"
-              className="bg-[#E98F4B] text-white px-6 py-3 rounded-full text-lg font-bold hover:bg-[#d97f3b] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg w-1/2 text-center"
+              className=" bg-orange-800 hover:bg-orange-900 text-white px-6 py-3 rounded-full text-lg font-bold  transition-all duration-300 ease-in-out shadow-md hover:shadow-lg w-1/2 text-center"
             >
               Checkout
             </Link>
