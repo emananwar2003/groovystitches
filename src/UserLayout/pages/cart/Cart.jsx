@@ -36,11 +36,11 @@ const Cart = () => {
                 >
                   <div className="flex items-center gap-4">
                     <img
-                      src={item.image}
+                      src={`/${item.img}`}
                       className="w-16 h-16 rounded-md object-cover"
                     />
                     <div>
-                      <h3 className="font-semibold">{item.name}</h3>
+                      <h3 className="font-semibold">{item.title}</h3>
                       <p className="text-gray-600">${item.price.toFixed(2)}</p>
                     </div>
                   </div>
