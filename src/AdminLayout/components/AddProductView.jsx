@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+// import {
+//   Menu,
+//   MenuHandler,
+//   MenuList,
+//   MenuItem,
+//   Button,
+// } from "@material-tailwind/react";
 
 const AddProductView = () => {
   const [formData, setFormData] = useState({
@@ -58,7 +65,6 @@ const AddProductView = () => {
     });
     setPreviewImage(null);
   };
-
   return (
     <div className="min-h-screen bg-dark-textPrimary bg-[url('/Login-Bg-img.jpg')] bg-cover bg-center">
       {showSuccess && (
@@ -185,7 +191,6 @@ const AddProductView = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
                 />
               </div>
-
               <div>
                 <label className="block text-black font-semibold mb-2">
                   Description
@@ -200,7 +205,23 @@ const AddProductView = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-y"
                 ></textarea>
               </div>
-
+              {/* <div className="relative z-50 overflow-visible">
+                <Menu>
+                  <MenuHandler>
+                    <Button
+                      className="bg-orange-800 hover:bg-orange-900 mb-6"
+                      style={{ overflow: "visible" }}
+                    >
+                      Categories
+                    </Button>
+                  </MenuHandler>
+                  <MenuList>
+                    <MenuItem>Accessories</MenuItem>
+                    <MenuItem>Bags</MenuItem>
+                    <MenuItem>Tops</MenuItem>
+                  </MenuList>
+                </Menu>
+              </div> */}
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
@@ -208,7 +229,6 @@ const AddProductView = () => {
                 >
                   Add Product
                 </button>
-
                 <button
                   type="button"
                   onClick={handleReset}
