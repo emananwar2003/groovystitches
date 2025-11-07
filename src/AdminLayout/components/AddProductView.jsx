@@ -18,6 +18,7 @@ const AddProductView = () => {
 
   const [previewImage, setPreviewImage] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showImageError, setShowImageError] = useState(false);
   const [showCategoryError, setShowCategoryError] = useState(false);
 
   const handleCategorySelect = (category) => {
@@ -46,9 +47,15 @@ const AddProductView = () => {
       reader.readAsDataURL(file);
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // require image selection
+    if (!formData.image) {
+      setShowImageError(true);
+      setTimeout(() => setShowImageError(false), 5000);
+      return;
+    }
 
     // require category selection
     if (!formData.category) {
@@ -56,10 +63,8 @@ const AddProductView = () => {
       setTimeout(() => setShowCategoryError(false), 5000);
       return;
     }
-
     setShowSuccess(true);
     console.log("Submitted Data:", formData);
-
     setFormData({
       name: "",
       price: "",
@@ -132,6 +137,31 @@ const AddProductView = () => {
             <div>
               <p className="font-semibold">Error!</p>
               <p className="text-sm">You must select a category first.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Error Popup */}
+      {showImageError && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in">
+          <div className="bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <div>
+              <p className="font-semibold">Error!</p>
+              <p className="text-sm">You must select image first.</p>
             </div>
           </div>
         </div>
