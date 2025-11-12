@@ -171,7 +171,6 @@ const Signup = () => {
       );
 
       const res = await req.json();
-      console.log(res.message);
 
       if (res.message == "This email is already registered") {
         Swal.fire({
