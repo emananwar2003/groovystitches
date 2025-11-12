@@ -68,12 +68,18 @@ const Login = () => {
     if (valid) {
       const dummyUser = {
         id: "001",
-        // name: formData.name,
         email: formData.email,
-        role: "user",
+        role: "user", // or "admin" for testing
       };
-      login(dummyUser);
-      navigate("/");
+
+      const dummyToken = "fake-jwt-token"; // temporary until backend returns a real token
+
+      //  pass both token and user to login()
+      login(dummyToken, dummyUser);
+
+      //  navigate based on role
+      if (dummyUser.role === "admin") navigate("/admin");
+      else navigate("/");
     }
   };
 
