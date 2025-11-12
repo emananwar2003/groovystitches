@@ -21,22 +21,21 @@ const UserLayout = () => {
     
   return (
     <div>
-
-    <HeaderNavbar />
+      <HeaderNavbar />
 
       <Routes>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="cart" element={<Cart />} />
         <Route
-          path="checkout"
+          path="cart"
           element={
             <Protectcart>
-              <Check />
+              <Cart />
             </Protectcart>
           }
         />
-    
+        <Route path="checkout" element={<Check />} />
+
         <Route path="products" element={<Products />} />
         <Route path="productdetail/:id" element={<Productdetail />} />
         <Route path="news" element={<News />} />
