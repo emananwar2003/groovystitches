@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         setToken(token); 
         setstatus(true); 
         localStorage.setItem("token", token);
-        localStorage.setItem("id", user.id);
+        localStorage.setItem("id", user._id);
     };
 
 
@@ -32,15 +32,11 @@ export const AuthProvider = ({ children }) => {
 
         if (storedToken && storedId) {
             try {
-             //  TEMPORARY MOCK:
-             // For testing, we restore a user with a mock role
-             setuserinfo({ id: storedId, role: "admin" }); // change "admin" to "user" for testing
+
             setToken(storedToken);
             setstatus(true);
-
-            // ⚡ Later: decode token to get real user info
-            // const decodedUser = jwtDecode(storedToken);
-            // setuserinfo(decodedUser);
+            const decodedUser = jwtDecode(storedToken);
+            setuserinfo(decodedUser);
         } catch (error) {
         console.error("Invalid token:", error);
             logout();
