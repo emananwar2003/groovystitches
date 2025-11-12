@@ -10,17 +10,14 @@ import {
 
 import logo from "../../../assets/logo.png";
 
-import UserProfile from "./userProfile";
+import UserProfile from "./UserProfile";
+
+import { useAuth } from "../../../contextapi/Authcontext"; // استدعاء الكونتكست
 
 export default function HeaderNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false); // use state for login b false
 
-  React.useEffect(() => {
-    const token = localStorage.getItem("userToken");
-    setIsLoggedIn(!!token); // هتخلي isLoggedIn true لو فيه token
-  }, []);
-
+  const { token } = useAuth();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -62,6 +59,7 @@ export default function HeaderNavbar() {
           About
         </Link>
       </Typography>
+
       <Typography
         as="li"
         variant="small"
@@ -98,6 +96,7 @@ export default function HeaderNavbar() {
           News
         </Link>
       </Typography>
+
       <Typography
         as="li"
         variant="small"
@@ -145,36 +144,35 @@ export default function HeaderNavbar() {
 
         <div className="hidden lg:block">{navList}</div>
 
-        {/* ✅ عرض الزراير لو مش عامل لوجين */}
-        {!isLoggedIn && (
-          <div className="flex items-center gap-x-1 ml-4">
-            <Link to="/registration/login">
-              <Button
-                variant="filled"
-                size="sm"
-                className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
-              >
-                <span>Log In</span>
-              </Button>
-            </Link>
-            <Link to="/registration/Signup">
-              <Button
-                variant="filled"
-                size="sm"
-                className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
-              >
-                <span>sign up</span>
-              </Button>
-            </Link>
-          </div>
-        )}
-
-        {/* ✅ إظهار البروفايل لو عامل لوجين */}
-        {isLoggedIn && (
-          <div className="hidden lg:flex items-center">
-            <UserProfile />
-          </div>
-        )}
+        {/* ✅ عرض الزراير دايمًا */}
+        <div className="flex items-center gap-x-1 ml-4">
+          {!token ? (
+            <>
+              <Link to="/registration/login">
+                <Button
+                  variant="filled"
+                  size="sm"
+                  className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
+                >
+                  <span>Log In</span>
+                </Button>
+              </Link>
+              <Link to="/registration/Signup">
+                <Button
+                  variant="filled"
+                  size="sm"
+                  className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
+                >
+                  <span>Sign Up</span>
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <div className="hidden lg:flex items-center gap-x-1 ml-4">
+              <UserProfile />
+            </div>
+          )}
+        </div>
 
         <IconButton
           variant="text"
@@ -218,31 +216,37 @@ export default function HeaderNavbar() {
       <Collapse open={openNav}>
         <div className="container mx-auto">
           {navList}
-          {/* عرض الزراير تحت في الموبايل */}
-          {!isLoggedIn && (
-            <div className="flex items-center gap-x-1">
-              <Link to="/registration/login" className="w-full">
-                <Button
-                  fullWidth
-                  variant="filled"
-                  size="sm"
-                  className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
-                >
-                  <span>Log In</span>
-                </Button>
-              </Link>
-              <Link to="/registration/Signup" className="w-full">
-                <Button
-                  fullWidth
-                  variant="filled"
-                  size="sm"
-                  className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
-                >
-                  <span>sign up</span>
-                </Button>
-              </Link>
-            </div>
-          )}
+          {/* عرض UserProfile أو أزرار Log In/Sign Up حسب وجود التوكين */}
+          <div className="flex items-center gap-x-1 w-full">
+            {token ? (
+              <div className="w-full flex justify-center lg:hidden">
+                <UserProfile />
+              </div>
+            ) : (
+              <>
+                <Link to="/registration/login" className="w-full">
+                  <Button
+                    fullWidth
+                    variant="filled"
+                    size="sm"
+                    className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
+                  >
+                    <span>Log In</span>
+                  </Button>
+                </Link>
+                <Link to="/registration/Signup" className="w-full">
+                  <Button
+                    fullWidth
+                    variant="filled"
+                    size="sm"
+                    className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
+                  >
+                    <span>Sign Up</span>
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </Collapse>
     </Navbar>
