@@ -10,8 +10,18 @@ import {
 
 import logo from "../../../assets/logo.png";
 
+import UserProfile from "./userProfile";
+
 export default function HeaderNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false); // use state for login b false
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    setIsLoggedIn(!!token); // هتخلي isLoggedIn true لو فيه token
+  }, []);
+
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -114,6 +124,7 @@ export default function HeaderNavbar() {
       </Typography>
     </ul>
   );
+
   return (
     <Navbar className="max-w-screen-3xl !rounded px-4 py-2 lg:px-8 lg:py-4 bg-orange-50 shadow-lg">
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -131,27 +142,40 @@ export default function HeaderNavbar() {
             Groovy Stitches
           </span>
         </Typography>
+
         <div className="hidden lg:block">{navList}</div>
-        <div className="flex items-center gap-x-1 ml-4">
-          <Link to="/registration/login">
-            <Button
-              variant="filled"
-              size="sm"
-              className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
-            >
-              <span>Log In</span>
-            </Button>
-          </Link>
-          <Link to="/registration/Signup">
-            <Button
-              variant="filled"
-              size="sm"
-              className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
-            >
-              <span>sign up</span>
-            </Button>
-          </Link>
-        </div>
+
+        {/* ✅ عرض الزراير لو مش عامل لوجين */}
+        {!isLoggedIn && (
+          <div className="flex items-center gap-x-1 ml-4">
+            <Link to="/registration/login">
+              <Button
+                variant="filled"
+                size="sm"
+                className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
+              >
+                <span>Log In</span>
+              </Button>
+            </Link>
+            <Link to="/registration/Signup">
+              <Button
+                variant="filled"
+                size="sm"
+                className="hidden lg:inline-block bg-orange-800 hover:bg-orange-900 text-white"
+              >
+                <span>sign up</span>
+              </Button>
+            </Link>
+          </div>
+        )}
+
+        {/* ✅ إظهار البروفايل لو عامل لوجين */}
+        {isLoggedIn && (
+          <div className="hidden lg:flex items-center">
+            <UserProfile />
+          </div>
+        )}
+
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -190,31 +214,35 @@ export default function HeaderNavbar() {
           )}
         </IconButton>
       </div>
+
       <Collapse open={openNav}>
         <div className="container mx-auto">
           {navList}
-          <div className="flex items-center gap-x-1">
-            <Link to="/registration/login" className="w-full">
-              <Button
-                fullWidth
-                variant="filled"
-                size="sm"
-                className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
-              >
-                <span>Log In</span>
-              </Button>
-            </Link>
-            <Link to="/registration/Signup" className="w-full">
-              <Button
-                fullWidth
-                variant="filled"
-                size="sm"
-                className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
-              >
-                <span>sign up</span>
-              </Button>
-            </Link>
-          </div>
+          {/* عرض الزراير تحت في الموبايل */}
+          {!isLoggedIn && (
+            <div className="flex items-center gap-x-1">
+              <Link to="/registration/login" className="w-full">
+                <Button
+                  fullWidth
+                  variant="filled"
+                  size="sm"
+                  className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
+                >
+                  <span>Log In</span>
+                </Button>
+              </Link>
+              <Link to="/registration/Signup" className="w-full">
+                <Button
+                  fullWidth
+                  variant="filled"
+                  size="sm"
+                  className="lg:inline-block bg-orange-800 text-white hover:bg-orange-900"
+                >
+                  <span>sign up</span>
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </Collapse>
     </Navbar>
