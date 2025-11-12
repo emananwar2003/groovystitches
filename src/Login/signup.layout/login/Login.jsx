@@ -27,7 +27,7 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     let valid = true;
     let newErrors = { name: "", email: "", password: "" };
@@ -66,22 +66,34 @@ const Login = () => {
     setErrors(newErrors);
 
     if (valid) {
+      try {
+        const data = {
+          email: formData.email,
+          password: formData.password,
+        };
+
+        const req = await fetch(
+          "https://backend-one-delta-10.vercel.app/api/v1/auth/login",
+          {
+            method: "post",
+            headers: { "Content-Type": "application/json" }, //gomla mn el mawke3 34an yfham elly bb3ato dah eno el type bta3o json
+            body: JSON.stringify(data),
+          }
+        );
+        const res = await req.json();
+        console.log(res.message);
+      } catch (err) {
+        console.log(err);
+      }
+
       const dummyUser = {
         id: "001",
         email: formData.email,
         role: "user", // or "admin" for testing
-
-
-        
-
-
       };
-
       const dummyToken = "fake-jwt-token"; // temporary until backend returns a real token
-
       //  pass both token and user to login()
       login(dummyToken, dummyUser);
-
       //  navigate based on role
       if (dummyUser.role === "admin") navigate("/admin");
       else navigate("/");
