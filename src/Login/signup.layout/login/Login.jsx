@@ -8,6 +8,9 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contextapi/Authcontext";
+
+import Swal from "sweetalert2";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -66,6 +69,7 @@ const Login = () => {
     setErrors(newErrors);
 
     if (valid) {
+      let token;
       try {
         const data = {
           email: formData.email,
@@ -81,10 +85,46 @@ const Login = () => {
           }
         );
         const res = await req.json();
-        console.log(res.message);
+
+        if (res.message == "Login successfully") {
+          Swal.fire({
+            title: "Login Success",
+            text: "Welcom!",
+            icon: "success",
+            background: "#bg-orange-900", // نفس الخلفية المووت
+            color: "#D97706", // نص برتقالي غامق
+            confirmButtonColor: "#B45309", // زر التأكيد
+            iconColor: "#A3E635", // أيقونة success هادية
+          });
+          navigate("/");
+          token = res.data.token;
+        } else if (res.message == "Unvalid Email") {
+          Swal.fire({
+            title: "This email is Unregistred",
+            text: "Go to signup",
+            icon: "error",
+            background: "#bg-orange-900", // خلفية هادية (مووت) - رمادي غامق
+            color: "#D97706", // نص برتقالي غامق
+            confirmButtonColor: "#B45309", // زر التأكيد برتقالي غامق
+            iconColor: "#FACC15",
+          });
+          navigate("/registration/Signup")
+        } else if (res.message == "Invalid Password") {
+          Swal.fire({
+            title: "This Password is Wrong",
+            text: "Try another Password",
+            icon: "error",
+            background: "#bg-orange-900", // خلفية هادية (مووت) - رمادي غامق
+            color: "#D97706", // نص برتقالي غامق
+            confirmButtonColor: "#B45309", // زر التأكيد برتقالي غامق
+            iconColor: "#FACC15",
+          });
+        }
       } catch (err) {
         console.log(err);
       }
+
+      console.log(token);
 
       const dummyUser = {
         id: "001",
@@ -96,7 +136,7 @@ const Login = () => {
       login(dummyToken, dummyUser);
       //  navigate based on role
       if (dummyUser.role === "admin") navigate("/admin");
-      else navigate("/");
+
     }
   };
 
