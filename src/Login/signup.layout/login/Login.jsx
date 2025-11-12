@@ -70,6 +70,11 @@ const Login = () => {
         id: "001",
         email: formData.email,
         role: "user", // or "admin" for testing
+
+
+        
+
+
       };
 
       const dummyToken = "fake-jwt-token"; // temporary until backend returns a real token

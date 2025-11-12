@@ -8,6 +8,8 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import Swal from "sweetalert2";
+
 const Signup = () => {
   const navigate = useNavigate(); // for navigation after validation
   // variables for validation
@@ -151,25 +153,52 @@ const Signup = () => {
       setAgreeError("");
     }
 
-    const formData = new FormData();
+    try {
+      const data = {
+        name: user.firstName + " " + user.lastName,
+        email: user.email,
+        phone: user.phone,
+        password: user.password,
+      };
 
-    formData.append("firstName", user.firstName);
-    formData.append("lastName", user.lastName);
-    formData.append("email", user.email);
-    formData.append("password", user.password);
-    formData.append("phone", user.phone);
+      const req = await fetch(
+        "https://backend-one-delta-10.vercel.app/api/v1/auth/register",
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" }, //gomla mn el mawke3 34an yfham elly bb3ato dah eno el type bta3o json
+          body: JSON.stringify(data),
+        }
+      );
 
-    const req = await fetch("https://dummyjson.com/users/add", {
-      //dah el route elly hab3at 3lyh data
-      method: "post", //eb3at data
-      // headers: { "Content-Type": "application/json" }, //gomla mn el mawke3 34an yfham elly bb3ato dah eno el type bta3o json
-      body: formData, //bb3at fy el body dah el data bta3ty 3la 4kl object
-    });
+      const res = await req.json();
+      console.log(res.message);
 
-    const res = await req.json();
-    console.log(res);
+      if (res.message == "This email is already registered") {
+        Swal.fire({
+          title: "This email is already registered",
+          text: "Try to Login",
+          icon: "error",
+          background: "#bg-orange-900", // خلفية هادية (مووت) - رمادي غامق
+          color: "#D97706", // نص برتقالي غامق
+          confirmButtonColor: "#B45309", // زر التأكيد برتقالي غامق
+          iconColor: "#FACC15",
+        });
+      } else if (res.message == "Register Successe") {
+        Swal.fire({
+          title: "Register Success",
+          text: "Go to Login!",
+          icon: "success",
+          background: "#bg-orange-900", // نفس الخلفية المووت
+          color: "#D97706", // نص برتقالي غامق
+          confirmButtonColor: "#B45309", // زر التأكيد
+          iconColor: "#A3E635", // أيقونة success هادية
+        });
+      }
+    } catch (err) {
+      console.error("Fetch failed:", err);
+    }
 
-    navigate("/login");
+    navigate("/registration/login");
   };
 
   return (
