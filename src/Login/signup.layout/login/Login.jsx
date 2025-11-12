@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contextapi/Authcontext";
+import { jwtDecode } from "jwt-decode";
 
 import Swal from "sweetalert2";
 
@@ -87,17 +88,21 @@ const Login = () => {
         const res = await req.json();
 
         if (res.message == "Login successfully") {
+          token = res.data.token;
+          const decodedUser = jwtDecode(token)
+          login(token, decodedUser);
           Swal.fire({
             title: "Login Success",
-            text: "Welcom!",
+            text: "Welcome!",
             icon: "success",
             background: "#bg-orange-900", // نفس الخلفية المووت
             color: "#D97706", // نص برتقالي غامق
             confirmButtonColor: "#B45309", // زر التأكيد
             iconColor: "#A3E635", // أيقونة success هادية
           });
-          navigate("/");
-          token = res.data.token;
+          if (decodedUser.role === "admin") navigate("/admin");
+          else navigate("/");
+        
         } else if (res.message == "Unvalid Email") {
           Swal.fire({
             title: "This email is Unregistred",
@@ -126,16 +131,9 @@ const Login = () => {
 
       console.log(token);
 
-      const dummyUser = {
-        id: "001",
-        email: formData.email,
-        role: "user", // or "admin" for testing
-      };
-      const dummyToken = "fake-jwt-token"; // temporary until backend returns a real token
-      //  pass both token and user to login()
-      login(dummyToken, dummyUser);
-      //  navigate based on role
-      if (dummyUser.role === "admin") navigate("/admin");
+      
+      
+      
 
     }
   };
