@@ -44,7 +44,7 @@ const UserProfile = () => {
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const { logout, userinfo } = useAuth();
+  
 
   const closeMenu = () => setIsMenuOpen(false);
 
