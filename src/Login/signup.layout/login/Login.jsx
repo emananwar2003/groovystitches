@@ -74,6 +74,8 @@ const Login = () => {
       };
       login(dummyUser);
       navigate("/");
+      localStorage.setItem("userToken", "123456"); // دلوقتي User عامل login
+      window.location.reload();
     }
   };
 
