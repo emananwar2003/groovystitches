@@ -13,12 +13,7 @@ import HeaderNavbar from "./../components/header/component/Navbar";
 import Footer from "./../components/footer/Footer";
 import Protectcart from "./../contextapi/Protectcart";
 
-
-
 const UserLayout = () => {
-    
- 
-    
   return (
     <div>
       <HeaderNavbar />
