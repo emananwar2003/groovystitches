@@ -89,7 +89,7 @@ const Login = () => {
 
         if (res.message == "Login successfully") {
           token = res.data.token;
-          const decodedUser = jwtDecode(token)
+          const decodedUser = jwtDecode(token);
           login(token, decodedUser);
           Swal.fire({
             title: "Login Success",
@@ -102,7 +102,6 @@ const Login = () => {
           });
           if (decodedUser.role === "admin") navigate("/admin");
           else navigate("/");
-        
         } else if (res.message == "Unvalid Email") {
           Swal.fire({
             title: "This email is Unregistred",
@@ -113,7 +112,7 @@ const Login = () => {
             confirmButtonColor: "#B45309", // زر التأكيد برتقالي غامق
             iconColor: "#FACC15",
           });
-          navigate("/registration/Signup")
+          navigate("/registration/Signup");
         } else if (res.message == "Invalid Password") {
           Swal.fire({
             title: "This Password is Wrong",
@@ -130,11 +129,6 @@ const Login = () => {
       }
 
       console.log(token);
-
-      
-      
-      
-
     }
   };
 
@@ -212,6 +206,7 @@ const Login = () => {
                 Sign up
               </Link>
             </Typography>
+            
           </form>
         </div>
       </Card>

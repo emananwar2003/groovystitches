@@ -52,6 +52,8 @@ const UserProfile = () => {
     if (label === "Sign Out") {
       logout();
       navigate("/registration/login");
+    } else if (label === "Edit Profile") {
+      navigate("/registration/editprofile"); 
     }
     closeMenu();
   };
@@ -76,7 +78,7 @@ const UserProfile = () => {
           {/* أولاً: My Profile */}
           <MenuItem className="flex flex-col items-start gap-1 rounded cursor-default">
             <Typography as="span" variant="small" className="font-medium">
-              My Profile 
+              My Profile
             </Typography>
             <Typography
               as="span"
@@ -88,7 +90,7 @@ const UserProfile = () => {
           </MenuItem>
 
           {profileMenuItems
-            .filter((item) => item.label !== "My Profile") 
+            .filter((item) => item.label !== "My Profile")
             .map(({ label, icon }) => {
               const isLastItem = label === "Sign Out";
               return (
