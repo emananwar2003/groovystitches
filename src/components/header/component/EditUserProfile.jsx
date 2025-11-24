@@ -2,25 +2,49 @@ import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
+import { useAuth } from "../../../contextapi/Authcontext";
+
 const EditUserProfile = () => {
+  const { userinfo, setuserinfo, token } = useAuth();
   const [user, setUser] = useState({
-    firstName: "Menna",
-    lastName: "Khaled",
-    email: "menna@gmail.com",
-    phone: "+201012345678",
+    email: userinfo?.email || "",
+    phone: userinfo?.phone || "",
   });
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    Swal.fire({
-      title: "Profile Updated Successfully 🎉",
-      text: "Your information has been saved.",
-      icon: "success",
-      background: "#1F2937",
-      color: "#FBBF24",
-      confirmButtonColor: "#B45309",
-      iconColor: "#A3E635",
-    });
+    // ha4of el data el adema law hya hya elly el user katbo fy el edit yb2a 2aolo eno el data mt8yrt4
+    if (user.email === userinfo.email && user.phone === userinfo.phone) {
+      return Swal.fire({
+        title: "No Changes Found ",
+        text: "Nothing was updated because you didn't change anything.",
+        icon: "info",
+        background: "#1F2937",
+        color: "#FBBF24",
+        confirmButtonColor: "#B45309",
+      });
+    } else {
+      // tab law et8yrt h3ml fetch ll api bta3 update user w ab3tlo el mail el adem 34an ydwar 3leh fy el data base w hb3tlo el edits elly hsalet 34an y3ml update fy el database
+      
+      // const req = await fetch(
+      //     "https://backend-one-delta-10.vercel.app/api/v1/auth/updateuser",
+      //     {
+      //       method: "post",
+      //       headers: { "Content-Type": "application/json" }, //gomla mn el mawke3 34an yfham elly bb3ato dah eno el type bta3o json
+      //       body: JSON.stringify(data),
+      //     }
+      //   );
+
+      Swal.fire({
+        title: "Profile Updated Successfully 🎉",
+        text: "Your information has been saved.",
+        icon: "success",
+        background: "#1F2937",
+        color: "#FBBF24",
+        confirmButtonColor: "#B45309",
+        iconColor: "#A3E635",
+      });
+    }
   };
 
   return (
@@ -44,22 +68,6 @@ const EditUserProfile = () => {
         </Typography>
 
         <form onSubmit={handleSave} className="flex flex-col gap-5">
-          <Input
-            label="First Name"
-            value={user.firstName}
-            onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-            size="lg"
-            className="focus:!border-orange-900"
-          />
-
-          <Input
-            label="Last Name"
-            value={user.lastName}
-            onChange={(e) => setUser({ ...user, lastName: e.target.value })}
-            size="lg"
-            className="focus:!border-orange-900"
-          />
-
           <Input
             label="Email Address"
             type="email"
