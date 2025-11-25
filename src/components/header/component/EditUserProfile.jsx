@@ -69,7 +69,7 @@ const EditUserProfile = () => {
     if (user.email === userinfo.email && user.phone === userinfo.phone) {
       return Swal.fire({
         title: "No Changes Found",
-        text: "Nothing was updated because you didn't change anything.",
+        text: "Nothing was updated because you didn't change anything..",
         icon: "info",
         background: "#1F2937",
         color: "#FBBF24",
@@ -133,7 +133,7 @@ const EditUserProfile = () => {
           variant="h4"
           className="text-center font-extrabold text-orange-900 tracking-wide"
         >
-          Edit Profile
+          Edit Profile 
         </Typography>
 
         <Typography color="gray" className="mt-2 mb-8 text-center text-sm sm:text-base">
