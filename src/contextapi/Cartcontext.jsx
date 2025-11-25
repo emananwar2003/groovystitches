@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     return {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -23,52 +23,69 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    setLoading(true);
-    const response = await axios.get(BASE_URL, getHeaders());
+    try {
+      setLoading(true);
+      const response = await axios.get(BASE_URL, getHeaders());
 
-    const rawProducts = response.data.products || [];
+      const rawProducts = response.data.products || [];
 
-    const groupedItems = rawProducts.reduce((acc, item) => {
-      if (!item.productid) return acc;
+      const groupedItems = rawProducts.reduce((acc, item) => {
+        if (!item.productid) return acc;
 
-      const product = item.productid;
-      const existingItem = acc.find((i) => i.id === product._id);
+        const product = item.productid;
+        const existingItem = acc.find((i) => i.id === product._id);
 
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        acc.push({
-          id: product._id,
-          title: product.name,
-          price: product.price,
-          img: product.image,
-          quantity: 1,
-        });
-      }
-      return acc;
-    }, []);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          acc.push({
+            id: product._id,
+            title: product.name,
+            price: product.price,
+            img: product.image,
+            quantity: 1,
+          });
+        }
+        return acc;
+      }, []);
 
-    setCartItems(groupedItems);
-    setLoading(false);
+      setCartItems(groupedItems);
+      setLoading(false);
+    } catch (error) {
+      console.error("Fetch cart error:", error);
+      setLoading(false);
+    }
   };
 
   const addToCart = async (product) => {
-    await axios.post(
-      BASE_URL,
-      { productId: product._id || product.id },
-      getHeaders()
-    );
-    await fetchCart();
+    try {
+      await axios.post(
+        BASE_URL,
+        { productId: product._id || product.id },
+        getHeaders()
+      );
+      await fetchCart();
+    } catch (error) {
+      console.error("Add to cart error:", error);
+    }
   };
 
   const removeFromCart = async (id) => {
-    await axios.delete(`${BASE_URL}/${id}`, getHeaders());
-    await fetchCart();
+    try {
+      await axios.patch(BASE_URL, { productId: id }, getHeaders());
+      await fetchCart();
+    } catch (error) {
+      console.error("Remove from cart error:", error);
+    }
   };
 
   const clearCart = async () => {
-    await axios.delete(`${BASE_URL}`, getHeaders());
-    setCartItems([]);
+    try {
+      await axios.delete(BASE_URL, getHeaders());
+      setCartItems([]);
+    } catch (error) {
+      console.error("Clear cart error:", error);
+    }
   };
 
   const incrementQuantity = (id) => {
@@ -77,11 +94,10 @@ export const CartProvider = ({ children }) => {
 
   const decrementQuantity = async (id) => {
     const item = cartItems.find((i) => i.id === id);
-    if (item.quantity === 1) {
-      removeFromCart(id);
+    if (item && item.quantity === 1) {
+      await removeFromCart(id);
     } else {
-      await axios.delete(`${BASE_URL}/${id}/decrement`, getHeaders());
-      await fetchCart();
+      await removeFromCart(id);
     }
   };
 
