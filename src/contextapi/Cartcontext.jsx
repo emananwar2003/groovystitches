@@ -13,7 +13,6 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     return {
       headers: {
-        // Remove "Bearer " prefix - backend expects raw token
         Authorization: token,
         "Content-Type": "application/json",
       },
@@ -73,7 +72,6 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async (id) => {
     try {
-      // Use PATCH method with productId in body (matching backend)
       await axios.patch(BASE_URL, { productId: id }, getHeaders());
       await fetchCart();
     } catch (error) {
@@ -97,10 +95,8 @@ export const CartProvider = ({ children }) => {
   const decrementQuantity = async (id) => {
     const item = cartItems.find((i) => i.id === id);
     if (item && item.quantity === 1) {
-      // If quantity is 1, remove the item completely
       await removeFromCart(id);
     } else {
-      // Remove one instance from cart
       await removeFromCart(id);
     }
   };
