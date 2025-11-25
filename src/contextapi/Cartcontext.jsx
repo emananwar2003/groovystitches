@@ -1,114 +1,60 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const BASE_URL = "https://backend-one-delta-10.vercel.app/api/v1/cart";
-
-  const getHeaders = () => {
-    const token = localStorage.getItem("token");
-    return {
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-    };
+  const addToCart = (product) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevItems.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...prevItems, { ...product, quantity: 1 }];
+      }
+    });
   };
 
-  const fetchCart = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    try {
-      setLoading(true);
-      const response = await axios.get(BASE_URL, getHeaders());
-
-      const rawProducts = response.data.products || [];
-
-      const groupedItems = rawProducts.reduce((acc, item) => {
-        if (!item.productid) return acc;
-
-        const product = item.productid;
-        const existingItem = acc.find((i) => i.id === product._id);
-
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          acc.push({
-            id: product._id,
-            title: product.name,
-            price: product.price,
-            img: product.image,
-            quantity: 1,
-          });
-        }
-        return acc;
-      }, []);
-
-      setCartItems(groupedItems);
-      setLoading(false);
-    } catch (error) {
-      console.error("Fetch cart error:", error);
-      setLoading(false);
-    }
-  };
-
-  const addToCart = async (product) => {
-    try {
-      await axios.post(
-        BASE_URL,
-        { productId: product._id || product.id },
-        getHeaders()
-      );
-      await fetchCart();
-    } catch (error) {
-      console.error("Add to cart error:", error);
-    }
-  };
-
-  const removeFromCart = async (id) => {
-    try {
-      await axios.patch(BASE_URL, { productId: id }, getHeaders());
-      await fetchCart();
-    } catch (error) {
-      console.error("Remove from cart error:", error);
-    }
-  };
-
-  const clearCart = async () => {
-    try {
-      await axios.delete(BASE_URL, getHeaders());
-      setCartItems([]);
-    } catch (error) {
-      console.error("Clear cart error:", error);
-    }
-  };
-
+  // add 1 if the same product
   const incrementQuantity = (id) => {
-    addToCart({ _id: id });
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
   };
 
-  const decrementQuantity = async (id) => {
-    const item = cartItems.find((i) => i.id === id);
-    if (item && item.quantity === 1) {
-      await removeFromCart(id);
-    } else {
-      await removeFromCart(id);
-    }
+  // subtract 1 if the same product
+  const decrementQuantity = (id) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === id);
+
+      // If item quantity is 1 remove it from the cart
+      if (existingItem && existingItem.quantity === 1) {
+        return prevItems.filter((item) => item.id !== id);
+      } else {
+        return prevItems.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      }
+    });
   };
+
+  const removeFromCart = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const clearCart = () => setCartItems([]);
 
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
     0
   );
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
 
   return (
     <CartContext.Provider
@@ -120,7 +66,6 @@ export const CartProvider = ({ children }) => {
         total,
         incrementQuantity,
         decrementQuantity,
-        loading,
       }}
     >
       {children}
