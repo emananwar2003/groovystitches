@@ -72,7 +72,6 @@ const Cart = () => {
             )}
           </div>
 
-          {/* BUTTONS SIDE BY SIDE & RESPONSIVE */}
           <div className="flex justify-center items-center gap-4 mt-8">
             <button
               onClick={clearCart}
