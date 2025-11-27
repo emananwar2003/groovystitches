@@ -6,7 +6,7 @@ export const getHeaders = () => {
   const token = localStorage.getItem("token");
   return {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   };
