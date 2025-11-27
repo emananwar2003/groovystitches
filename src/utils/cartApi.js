@@ -2,7 +2,6 @@ const BASE_URL = "https://backend-one-delta-10.vercel.app/api/v1/cart";
 
 export const getHeaders = () => {
   const token = localStorage.getItem("token");
-  console.log("CartAPI: Retrieved token from localStorage:", token);
   return {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
