@@ -3,8 +3,10 @@ const BASE_URL = "https://backend-one-delta-10.vercel.app/api/v1/cart";
 export const getHeaders = () => {
   const token = localStorage.getItem("token");
   return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
   };
 };
 
@@ -13,17 +15,8 @@ export async function fetchCartFromServer() {
   if (!token) return [];
 
   try {
-    const response = await fetch(BASE_URL, {
-      method: "GET",
-      headers: getHeaders(),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error fetching cart: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const rawProducts = data.products || [];
+    const response = await axios.get(BASE_URL, getHeaders());
+    const rawProducts = response.data.products || [];
 
     const groupedItems = rawProducts.reduce((acc, item) => {
       if (!item.productid) return acc;
@@ -54,15 +47,7 @@ export async function fetchCartFromServer() {
 
 export async function postAddToCart(productId) {
   try {
-    const response = await fetch(BASE_URL, {
-      method: "POST",
-      headers: getHeaders(),
-      body: JSON.stringify({ productId }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error adding to cart: ${response.statusText}`);
-    }
+    await axios.post(BASE_URL, { productId }, getHeaders());
   } catch (error) {
     console.error("postAddToCart error:", error);
     throw error;
@@ -71,15 +56,7 @@ export async function postAddToCart(productId) {
 
 export async function patchRemoveFromCart(productId) {
   try {
-    const response = await fetch(BASE_URL, {
-      method: "PATCH",
-      headers: getHeaders(),
-      body: JSON.stringify({ productId }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error removing from cart: ${response.statusText}`);
-    }
+    await axios.patch(BASE_URL, { productId }, getHeaders());
   } catch (error) {
     console.error("patchRemoveFromCart error:", error);
     throw error;
@@ -88,14 +65,7 @@ export async function patchRemoveFromCart(productId) {
 
 export async function deleteClearCart() {
   try {
-    const response = await fetch(BASE_URL, {
-      method: "DELETE",
-      headers: getHeaders(),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error clearing cart: ${response.statusText}`);
-    }
+    await axios.delete(BASE_URL, getHeaders());
   } catch (error) {
     console.error("deleteClearCart error:", error);
     throw error;
