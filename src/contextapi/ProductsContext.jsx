@@ -11,7 +11,9 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5050/api/v1/products");
+        const res = await fetch(
+          "https://backend-one-delta-10.vercel.app/api/v1/products"
+        );
         const data = await res.json();
         setProducts(Array.isArray(data.data) ? data.data : []);
       } catch (err) {
