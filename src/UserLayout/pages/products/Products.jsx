@@ -64,7 +64,7 @@ const Products = () => {
       {filteredProducts.length === 0 ? (
         <p className="text-xl text-gray-700 mt-8">No products to display.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+        <div className="w-full max-w-6xl grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-8">
           {filteredProducts.map((product) => {
             const imgSrc = product.image?.startsWith("http")
               ? product.image

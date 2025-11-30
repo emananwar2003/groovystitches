@@ -3,8 +3,8 @@
 const ProductCard = ({ image, name, price }) => {
   return (
     <div
-      className="w-72 bg-deep-orange-50 shadow-lg rounded-xl overflow-hidden
-     hover:scale-105 transition-transform duration-300"
+      className="w-full max-w-sm bg-deep-orange-50 shadow-lg rounded-xl overflow-hidden
+  hover:scale-105 transition-transform duration-300 mx-auto"
     >
       <img src={image} alt={name} className="w-full h-64 object-cover" />
       <div className="p-4">
