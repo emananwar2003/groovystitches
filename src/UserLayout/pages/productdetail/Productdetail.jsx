@@ -60,9 +60,6 @@ const Productdetail = () => {
         >
           Add to Cart
         </button>
-        <button className="mt-3 w-full  bg-orange-800 hover:bg-orange-900 text-white py-2 rounded-lg  transition">
-          Buy now
-        </button>
       </div>
     </div>
   );
