@@ -7,10 +7,19 @@ const CarouselHome = ({ trending }) => {
     const CarouselDefault = ({ trending }) => {
         return (
             <Carousel className="rounded-3xl bg-[#ffebc8]   w-[98%]  self-center">
-                
                 {trending.map((item) => (
-                    <TrendingCard key={item.id} item={item} />
-                ))}
+                    <TrendingCard
+                        key={item._id}
+                        item={{
+                            id: item._id,
+                            title: item.name,
+                            price: item.price,
+                            img: item.image?.startsWith("http") ? item.image : `/${item.image}`,
+                            details: item.description || "",
+                        }
+                        }
+                    />
+            ))}
             </Carousel>
         );
     };
