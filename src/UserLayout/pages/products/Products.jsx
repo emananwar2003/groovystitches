@@ -11,7 +11,7 @@ const Products = () => {
   const { selectedCategories } = useFilter();
   const { products, loading, error } = useProducts();
 
-  console.log("📢 Products rendered, products =", products);
+  console.log("Products rendered, products =", products);
 
   if (loading) {
     return (
@@ -52,37 +52,36 @@ const Products = () => {
   }
 
   return (
-    <div
-      className="flex flex-wrap gap-6 justify-center 
-    p-6 items-center bg-deep-orange-50 bg-[url('/products.jpg')] bg-[length:100%_100%] min-h-screen"
-    >
-      <h1 className="text-5xl font-extrabold text-gray-800 text-center sm:w-full">
+    <div className="p-6 bg-deep-orange-50 bg-[url('/products.jpg')] bg-cover bg-center min-h-screen flex flex-col items-center">
+      <h1 className="text-5xl font-extrabold text-gray-800 text-center mb-6">
         Our <span className="text-orange-500 ">Exclusive</span> Products
       </h1>
 
-      <div className="items-start self-start">
+      <div className="self-start mb-6">
         <FilterMenu />
       </div>
 
-      {filteredProducts.length === 0 && (
+      {filteredProducts.length === 0 ? (
         <p className="text-xl text-gray-700 mt-8">No products to display.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+          {filteredProducts.map((product) => {
+            const imgSrc = product.image?.startsWith("http")
+              ? product.image
+              : `/${product.image}`;
+
+            return (
+              <Link to={`/productdetail/${product._id}`} key={product._id}>
+                <ProductCard
+                  image={imgSrc}
+                  name={product.name}
+                  price={product.price}
+                />
+              </Link>
+            );
+          })}
+        </div>
       )}
-
-      {filteredProducts.map((product) => {
-        const imgSrc = product.image?.startsWith("http")
-          ? product.image
-          : `/${product.image}`;
-
-        return (
-          <Link to={`/productdetail/${product._id}`} key={product._id}>
-            <ProductCard
-              image={imgSrc}
-              name={product.name}
-              price={product.price}
-            />
-          </Link>
-        );
-      })}
     </div>
   );
 };
