@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const BASE_URL = "https://backend-one-delta-10.vercel.app/api/v1/cart";
 
 export const getHeaders = () => {
@@ -68,6 +70,15 @@ export async function deleteClearCart() {
     await axios.delete(BASE_URL, getHeaders());
   } catch (error) {
     console.error("deleteClearCart error:", error);
+    throw error;
+  }
+}
+
+export async function putDecreaseQuantity(productId) {
+  try {
+    await axios.put(BASE_URL, { productId }, getHeaders());
+  } catch (error) {
+    console.error("putDecreaseQuantity error:", error);
     throw error;
   }
 }
