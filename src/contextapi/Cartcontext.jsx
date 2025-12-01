@@ -1,11 +1,33 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./Authcontext";
+import {
+  fetchCartFromServer,
+  postAddToCart,
+  patchRemoveFromCart,
+  deleteClearCart,
+  putDecreaseQuantity,
+} from "../utils/cartApi";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const { token } = useAuth();
 
-  const addToCart = (product) => {
+  useEffect(() => {
+    const loadCart = async () => {
+      if (token) {
+        const items = await fetchCartFromServer();
+        setCartItems(items);
+      } else {
+        setCartItems([]);
+      }
+    };
+    loadCart();
+  }, [token]);
+
+  const addToCart = async (product) => {
+    // Optimistic update
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
@@ -18,19 +40,35 @@ export const CartProvider = ({ children }) => {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+
+    if (token) {
+      try {
+        await postAddToCart(product.id);
+      } catch (error) {
+        console.error("Failed to add to cart:", error);
+      }
+    }
   };
 
   // add 1 if the same product
-  const incrementQuantity = (id) => {
+  const incrementQuantity = async (id) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
+
+    if (token) {
+      try {
+        await postAddToCart(id);
+      } catch (error) {
+        console.error("Failed to increment quantity:", error);
+      }
+    }
   };
 
   // subtract 1 if the same product
-  const decrementQuantity = (id) => {
+  const decrementQuantity = async (id) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === id);
 
@@ -43,13 +81,38 @@ export const CartProvider = ({ children }) => {
         );
       }
     });
+
+    if (token) {
+      try {
+        await putDecreaseQuantity(id);
+      } catch (error) {
+        console.error("Failed to decrement quantity:", error);
+      }
+    }
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = async (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
+
+    if (token) {
+      try {
+        await patchRemoveFromCart(id);
+      } catch (error) {
+        console.error("Failed to remove from cart:", error);
+      }
+    }
   };
 
-  const clearCart = () => setCartItems([]);
+  const clearCart = async () => {
+    setCartItems([]);
+    if (token) {
+      try {
+        await deleteClearCart();
+      } catch (error) {
+        console.error("Failed to clear cart:", error);
+      }
+    }
+  };
 
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
