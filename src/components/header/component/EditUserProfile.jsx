@@ -86,7 +86,7 @@ const EditUserProfile = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: token,
+            Authorization: token, // i deleted here bear word
           },
           body: JSON.stringify({
             email: user.email,
