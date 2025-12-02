@@ -3,16 +3,8 @@ import { Link } from "react-router-dom";
 
 const LINKS = [
   {
-    title: "Product",
-    items: ["Overview", "Features", "Solutions", "Tutorials"],
-  },
-  {
-    title: "Company",
-    items: ["About us", "Careers", "Press", "News"],
-  },
-  {
-    title: "Resource",
-    items: ["Blog", "Newsletter", "Events", "Help center"],
+    title: "Main Menu",
+    items: ["About", "Products", "Cart", "News"],
   },
 ];
 
@@ -22,11 +14,14 @@ export default function Footer() {
   return (
     <footer className="relative w-full bg-orange-50 shadow-inner">
       <div className="mx-auto w-full max-w-7xl px-8 py-5 md:px-12 lg:px-16 lg:py-10">
-        <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-          <div>
+        {/* TOP SECTION */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* LEFT COLUMN — LOGO + TITLE */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <Typography variant="h5" className="mb-2">
               GroovyStitches
             </Typography>
+
             <img
               src="logo.png"
               alt="GroovyStitches Logo"
@@ -34,60 +29,55 @@ export default function Footer() {
             />
           </div>
 
-          <div className="grid grid-cols-3 justify-between gap-4">
-            {LINKS.map(({ title, items }) => (
-              <ul key={title}>
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="mb-3 font-medium opacity-40"
-                >
-                  {title}
-                </Typography>
-                {items.map((link) => (
-                  <li key={link}>
-                    <Typography
-                      as={Link}
-                      to={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
-                      color="gray"
-                      className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
-                    >
-                      {link}
-                    </Typography>
-                  </li>
-                ))}
-              </ul>
-            ))}
+          {/* RIGHT COLUMN — LINKS */}
+          <div className="flex justify-center md:justify-center">
+            <div className="grid grid-cols-1 text-center md:text-left">
+              {LINKS.map(({ title, items }) => (
+                <ul key={title}>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="mb-3 font-medium opacity-40"
+                  >
+                    {title}
+                  </Typography>
+
+                  {items.map((link) => (
+                    <li key={link}>
+                      <Typography
+                        as={Link}
+                        to={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
+                        color="gray"
+                        className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
+                      >
+                        {link}
+                      </Typography>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
           </div>
         </div>
 
+        {/* BOTTOM SECTION */}
         <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <Typography
             variant="small"
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
-            &copy; {currentYear} <Link to="/">GroovyStitches</Link>. All Rights
+            &copy; {currentYear} <Link to="/">GroovyStitches </Link>. All Rights
             Reserved.
           </Typography>
 
+          {/* social media */}
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
-            <Typography
-              as={Link}
-              to="#"
-              className="opacity-80 flex gap-3 transition-opacity hover:opacity-100"
+            {/* insta */}
+            <Link
+              to="https://www.instagram.com/groovy_stitchess/"
+              target="_blank"
+              className="opacity-80 transition-opacity hover:opacity-100"
             >
-              {/* <svg
-                className="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                />
-              </svg> */}
               <svg
                 className="h-5 w-5"
                 fill="currentColor"
@@ -100,6 +90,14 @@ export default function Footer() {
                   clipRule="evenodd"
                 />
               </svg>
+            </Link>
+
+            {/* tiktok */}
+            <Link
+              to="https://www.tiktok.com/@groovystitchess0?_r=1&_t=ZS-91t5Y42thYu"
+              target="_blank"
+              className="opacity-80 transition-opacity hover:opacity-100"
+            >
               <svg
                 className="h-5 w-5"
                 fill="black"
@@ -108,7 +106,7 @@ export default function Footer() {
               >
                 <path d="M16.5 3.5c.58.46 1.23.85 1.93 1.14.67.28 1.38.47 2.07.56v3.01a6.82 6.82 0 01-4-1.35v6.87c0 3.68-2.99 6.67-6.67 6.67S3.16 17.41 3.16 13.73c0-3.68 2.99-6.67 6.67-6.67.36 0 .72.03 1.07.08v3.14a3.74 3.74 0 00-1.07-.15 3.53 3.53 0 00-3.53 3.53 3.53 3.53 0 003.53 3.53c1.94 0 3.53-1.59 3.53-3.53V2h3.1v1.5z" />
               </svg>
-            </Typography>
+            </Link>
           </div>
         </div>
       </div>
