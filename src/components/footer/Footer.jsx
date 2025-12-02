@@ -21,14 +21,12 @@ export default function Footer() {
             <Typography variant="h5" className="mb-2">
               GroovyStitches
             </Typography>
-
             <img
               src="logo.png"
               alt="GroovyStitches Logo"
               className="w-32 h-auto m-6"
             />
           </div>
-
           {/* RIGHT COLUMN — LINKS */}
           <div className="flex justify-center md:justify-center">
             <div className="grid grid-cols-1 text-center md:text-left">
@@ -41,7 +39,6 @@ export default function Footer() {
                   >
                     {title}
                   </Typography>
-
                   {items.map((link) => (
                     <li key={link}>
                       <Typography
@@ -59,7 +56,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
         {/* BOTTOM SECTION */}
         <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <Typography
@@ -69,7 +65,6 @@ export default function Footer() {
             &copy; {currentYear} <Link to="/">GroovyStitches </Link>. All Rights
             Reserved.
           </Typography>
-
           {/* social media */}
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
             {/* insta */}
@@ -91,7 +86,6 @@ export default function Footer() {
                 />
               </svg>
             </Link>
-
             {/* tiktok */}
             <Link
               to="https://www.tiktok.com/@groovystitchess0?_r=1&_t=ZS-91t5Y42thYu"

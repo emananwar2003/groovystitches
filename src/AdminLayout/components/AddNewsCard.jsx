@@ -1,30 +1,30 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+// import {
+//   Card,
+//   CardBody,
+//   CardFooter,
+//   Typography,
+//   Button,
+// } from "@material-tailwind/react";
+// import { Link } from "react-router-dom";
 
-const AddNewsCard = () => {
-  return (
-    <Card className="mt-6 w-96 bg-[url('/Colors-img.jpg')] bg-cover bg-center opacity-90">
-      <CardBody>
-        <Typography variant="h5" color="blue-gray" className="mb-2">
-          Add News
-        </Typography>
-        <Typography>Add a new news to your site.</Typography>
-      </CardBody>
-      <Link to="add-news">
-        <CardFooter className="pt-0">
-          <Button className=" bg-orange-800 hover:bg-orange-900">
-            Add News
-          </Button>
-        </CardFooter>
-      </Link>
-    </Card>
-  );
-};
+// const AddNewsCard = () => {
+//   return (
+//     <Card className="mt-6 w-96 bg-[url('/Colors-img.jpg')] bg-cover bg-center opacity-90">
+//       <CardBody>
+//         <Typography variant="h5" color="blue-gray" className="mb-2">
+//           Add News
+//         </Typography>
+//         <Typography>Add a new news to your site.</Typography>
+//       </CardBody>
+//       <Link to="add-news">
+//         <CardFooter className="pt-0">
+//           <Button className=" bg-orange-800 hover:bg-orange-900">
+//             Add News
+//           </Button>
+//         </CardFooter>
+//       </Link>
+//     </Card>
+//   );
+// };
 
-export default AddNewsCard;
+// export default AddNewsCard;
