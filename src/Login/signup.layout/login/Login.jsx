@@ -206,7 +206,6 @@ const Login = () => {
                 Sign up
               </Link>
             </Typography>
-            
           </form>
         </div>
       </Card>

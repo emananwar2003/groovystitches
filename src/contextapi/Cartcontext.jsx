@@ -17,8 +17,34 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const loadCart = async () => {
       if (token) {
-        const items = await fetchCartFromServer();
-        setCartItems(items);
+        const data = await fetchCartFromServer();
+
+        if (data && data.products) {
+          const transformedItems = data.products.reduce((acc, item) => {
+            if (item.productid) {
+              const existingIndex = acc.findIndex(
+                (i) => i.id === item.productid._id
+              );
+
+              if (existingIndex > -1) {
+                acc[existingIndex].quantity += 1;
+              } else {
+                acc.push({
+                  id: item.productid._id,
+                  title: item.productid.name,
+                  price: item.productid.price,
+                  image: item.productid.image,
+                  quantity: 1,
+                });
+              }
+            }
+            return acc;
+          }, []);
+
+          setCartItems(transformedItems);
+        } else {
+          setCartItems([]);
+        }
       } else {
         setCartItems([]);
       }
@@ -27,7 +53,6 @@ export const CartProvider = ({ children }) => {
   }, [token]);
 
   const addToCart = async (product) => {
-    // Optimistic update
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
@@ -50,7 +75,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // add 1 if the same product
   const incrementQuantity = async (id) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
@@ -67,12 +91,9 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // subtract 1 if the same product
   const decrementQuantity = async (id) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === id);
-
-      // If item quantity is 1 remove it from the cart
       if (existingItem && existingItem.quantity === 1) {
         return prevItems.filter((item) => item.id !== id);
       } else {
