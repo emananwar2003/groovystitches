@@ -29,46 +29,55 @@ const Cart = () => {
             {cartItems.length === 0 ? (
               <p className="text-center text-gray-500">Your cart is empty.</p>
             ) : (
-              cartItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between border-b pb-2"
-                >
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={`/${item.img}`}
-                      className="w-16 h-16 rounded-md object-cover"
-                    />
-                    <div>
-                      <h3 className="font-semibold">{item.title}</h3>
-                      <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => decrementQuantity(item.id)}
-                      className="bg-gray-200 w-7 h-7 rounded-full font-bold text-lg hover:bg-gray-300"
-                    >
-                      -
-                    </button>
-                    <span className="font-semibold text-lg">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() => incrementQuantity(item.id)}
-                      className="bg-gray-200 w-7 h-7 rounded-full font-bold text-lg hover:bg-gray-300"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="text-red-500 hover:text-red-700 font-bold"
+              cartItems.map((item) => {
+                const imgSrc = item.image?.startsWith("http")
+                  ? item.image
+                  : `/${item.image}`;
+
+                return (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between border-b pb-2"
                   >
-                    Remove
-                  </button>
-                </div>
-              ))
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={imgSrc}
+                        alt={item.title}
+                        className="w-16 h-16 rounded-md object-cover"
+                      />
+                      <div>
+                        <h3 className="font-semibold">{item.title}</h3>
+                        <p className="text-gray-600">
+                          ${item.price.toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => decrementQuantity(item.id)}
+                        className="bg-gray-200 w-7 h-7 rounded-full font-bold text-lg hover:bg-gray-300"
+                      >
+                        -
+                      </button>
+                      <span className="font-semibold text-lg">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => incrementQuantity(item.id)}
+                        className="bg-gray-200 w-7 h-7 rounded-full font-bold text-lg hover:bg-gray-300"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-red-500 hover:text-red-700 font-bold"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                );
+              })
             )}
           </div>
 

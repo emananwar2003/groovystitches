@@ -6,20 +6,27 @@ import {
   MenuItem,
   Button,
 } from "@material-tailwind/react";
+import { addProduct } from "../../utils/productApi";
+import { useNavigate } from "react-router-dom";
 
 const AddProductView = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     price: "",
     description: "",
     image: "",
     category: "",
+    quantity: 0,
   });
 
   const [previewImage, setPreviewImage] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showImageError, setShowImageError] = useState(false);
   const [showCategoryError, setShowCategoryError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleCategorySelect = (category) => {
     setFormData((prev) => ({ ...prev, category }));
@@ -39,44 +46,72 @@ const AddProductView = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
+        // Store just the filename for the backend
         setFormData((prev) => ({
           ...prev,
-          image: reader.result,
+          image: file.name,
         }));
       };
       reader.readAsDataURL(file);
     }
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // require image selection
+    // Validate image selection
     if (!formData.image) {
       setShowImageError(true);
       setTimeout(() => setShowImageError(false), 5000);
       return;
     }
 
-    // require category selection
+    // Validate category selection
     if (!formData.category) {
       setShowCategoryError(true);
       setTimeout(() => setShowCategoryError(false), 5000);
       return;
     }
-    setShowSuccess(true);
-    console.log("Submitted Data:", formData);
-    setFormData({
-      name: "",
-      price: "",
-      description: "",
-      image: "",
-      category: "",
-    });
-    setPreviewImage(null);
 
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+    setLoading(true);
+
+    try {
+      // Prepare data for backend
+      const productData = {
+        name: formData.name,
+        price: parseFloat(formData.price),
+        description: formData.description,
+        image: formData.image,
+        category: formData.category,
+        quantity: parseInt(formData.quantity) || 0,
+      };
+
+      await addProduct(productData);
+
+      setShowSuccess(true);
+
+      // Reset form
+      setFormData({
+        name: "",
+        price: "",
+        description: "",
+        image: "",
+        category: "",
+        quantity: 0,
+      });
+      setPreviewImage(null);
+
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/admin/product-list");
+      }, 2000);
+    } catch (error) {
+      setErrorMessage(error.message || "Failed to add product");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
@@ -86,6 +121,7 @@ const AddProductView = () => {
       description: "",
       image: "",
       category: "",
+      quantity: 0,
     });
     setPreviewImage(null);
   };
@@ -112,6 +148,31 @@ const AddProductView = () => {
             <div>
               <p className="font-semibold">Success!</p>
               <p className="text-sm">Product added successfully.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Error Popup */}
+      {showError && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in">
+          <div className="bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <div>
+              <p className="font-semibold">Error!</p>
+              <p className="text-sm">{errorMessage}</p>
             </div>
           </div>
         </div>
@@ -242,13 +303,29 @@ const AddProductView = () => {
                   Price
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  step="0.01"
                   name="price"
                   value={formData.price}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                   placeholder="Enter price for your product."
+                />
+              </div>
+
+              {/* Quantity */}
+              <div>
+                <label className="block text-black font-semibold mb-2">
+                  Quantity
+                </label>
+                <input
+                  type="number"
+                  name="quantity"
+                  value={formData.quantity}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                  placeholder="Enter quantity (optional)"
                 />
               </div>
 
@@ -299,14 +376,16 @@ const AddProductView = () => {
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-orange-800 hover:bg-orange-900 text-white py-3 rounded-lg font-semibold"
+                  disabled={loading}
+                  className="flex-1 bg-orange-800 hover:bg-orange-900 text-white py-3 rounded-lg font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                  Add Product
+                  {loading ? "Adding..." : "Add Product"}
                 </button>
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-black py-3 rounded-lg font-semibold"
+                  disabled={loading}
+                  className="flex-1 bg-gray-200 hover:bg-gray-300 text-black py-3 rounded-lg font-semibold disabled:bg-gray-100 disabled:cursor-not-allowed"
                 >
                   Reset
                 </button>

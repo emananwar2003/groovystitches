@@ -1,18 +1,37 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { updateProduct } from "../../utils/productApi";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 
 const EditProductView = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { product } = location.state || {};
+
   const [formData, setFormData] = useState({
     name: product?.name || "",
     price: product?.price || "",
     image: product?.image || "",
     description: product?.description || "",
+    category: product?.category || "",
+    quantity: product?.quantity || 0,
   });
 
   const [previewImage, setPreviewImage] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleCategorySelect = (category) => {
+    setFormData((prev) => ({ ...prev, category }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,30 +49,68 @@ const EditProductView = () => {
         setPreviewImage(reader.result);
         setFormData((prev) => ({
           ...prev,
-          image: reader.result,
+          image: file.name,
         }));
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+
+    if (!product?._id) {
+      setErrorMessage("Product ID not found");
+      setShowError(true);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const productData = {
+        name: formData.name,
+        price: parseFloat(formData.price),
+        description: formData.description,
+        image: formData.image,
+        category: formData.category,
+        quantity: parseInt(formData.quantity) || 0,
+      };
+
+      await updateProduct(product._id, productData);
+
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/admin/product-list");
+      }, 2000);
+    } catch (error) {
+      setErrorMessage(error.message || "Failed to update product");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
     setFormData({
-      name: "",
-      price: "",
-      description: "",
-      image: "",
+      name: product?.name || "",
+      price: product?.price || "",
+      description: product?.description || "",
+      image: product?.image || "",
+      category: product?.category || "",
+      quantity: product?.quantity || 0,
     });
     setPreviewImage(null);
   };
+
+  // Handle image display
+  const displayImage =
+    previewImage ||
+    (formData.image?.startsWith("http")
+      ? formData.image
+      : `/${formData.image}`);
 
   return (
     <div className="min-h-screen bg-dark-textPrimary bg-[url('/Login-Bg-img.jpg')] bg-cover bg-center">
@@ -75,26 +132,32 @@ const EditProductView = () => {
             </svg>
             <div>
               <p className="font-semibold">Success!</p>
-              <p className="text-sm">Product edited successfully.</p>
+              <p className="text-sm">Product updated successfully.</p>
             </div>
-            <button
-              onClick={() => setShowSuccess(false)}
-              className="ml-4 text-white hover:text-gray-200"
+          </div>
+        </div>
+      )}
+
+      {showError && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in">
+          <div className="bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <div>
+              <p className="font-semibold">Error!</p>
+              <p className="text-sm">{errorMessage}</p>
+            </div>
           </div>
         </div>
       )}
@@ -107,9 +170,9 @@ const EditProductView = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex flex-col items-center mb-6">
               <div className="relative w-32 h-32 mb-4">
-                {previewImage || formData.image ? (
+                {displayImage ? (
                   <img
-                    src={previewImage || formData.image}
+                    src={displayImage}
                     alt="Preview"
                     className="w-full h-full object-cover rounded-full border-4 border-indigo-200"
                   />
@@ -167,14 +230,29 @@ const EditProductView = () => {
               <label className="block text-black font-semibold mb-2">
                 Price
               </label>
-              <textarea
+              <input
+                type="number"
+                step="0.01"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="Enter product price"
                 required
-                rows="1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+              />
+            </div>
+
+            <div>
+              <label className="block text-black font-semibold mb-2">
+                Quantity
+              </label>
+              <input
+                type="number"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                placeholder="Enter quantity"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
               />
             </div>
 
@@ -193,17 +271,43 @@ const EditProductView = () => {
               ></textarea>
             </div>
 
+            <div>
+              <label className="block text-black font-semibold mb-2">
+                Category
+              </label>
+              <Menu>
+                <MenuHandler>
+                  <Button className="bg-orange-800 hover:bg-orange-900">
+                    {formData.category || "Select Category"}
+                  </Button>
+                </MenuHandler>
+                <MenuList>
+                  <MenuItem onClick={() => handleCategorySelect("Accessories")}>
+                    Accessories
+                  </MenuItem>
+                  <MenuItem onClick={() => handleCategorySelect("Bags")}>
+                    Bags
+                  </MenuItem>
+                  <MenuItem onClick={() => handleCategorySelect("Tops")}>
+                    Tops
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </div>
+
             <div className="flex gap-4 pt-4">
               <button
                 type="submit"
-                className="flex-1 bg-orange-800 hover:bg-orange-900 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
+                disabled={loading}
+                className="flex-1 bg-orange-800 hover:bg-orange-900 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                Confirm Edit
+                {loading ? "Updating..." : "Confirm Edit"}
               </button>
               <button
                 type="button"
                 onClick={handleReset}
-                className="flex-1 bg-gray-200 text-black py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+                disabled={loading}
+                className="flex-1 bg-gray-200 text-black py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
               >
                 Reset
               </button>

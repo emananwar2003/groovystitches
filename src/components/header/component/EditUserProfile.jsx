@@ -26,7 +26,8 @@ const EditUserProfile = () => {
       let emailErr = "";
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (value === "") emailErr = "- Please enter your email";
-      else if (!emailPattern.test(value)) emailErr = "- Please enter a valid email";
+      else if (!emailPattern.test(value))
+        emailErr = "- Please enter a valid email";
       setErrors((prev) => ({ ...prev, email: emailErr }));
     } else if (name === "phone") {
       let phoneErr = "";
@@ -59,7 +60,8 @@ const EditUserProfile = () => {
       newErrors.phone = "- Please enter your phone number";
       valid = false;
     } else if (!egyptianPhoneRegex.test(user.phone.trim())) {
-      newErrors.phone = "- Please enter a valid phone number with country code +20";
+      newErrors.phone =
+        "- Please enter a valid phone number with country code +20";
       valid = false;
     }
 
@@ -133,15 +135,17 @@ const EditUserProfile = () => {
           variant="h4"
           className="text-center font-extrabold text-orange-900 tracking-wide"
         >
-          Edit Profile 
+          Edit Profile
         </Typography>
 
-        <Typography color="gray" className="mt-2 mb-8 text-center text-sm sm:text-base">
+        <Typography
+          color="gray"
+          className="mt-2 mb-8 text-center text-sm sm:text-base"
+        >
           Update your personal details and save changes
         </Typography>
 
         <form onSubmit={handleSave} className="flex flex-col gap-5">
-          
           {/* Email */}
           <div className="flex flex-col gap-1">
             <Typography
